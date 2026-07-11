@@ -194,7 +194,7 @@ def check_once(exchange, state):
 
 
 def main():
-    exchange = ccxt.gateio()
+    exchange = ccxt.gate()
     state = load_state()
     state = check_once(exchange, state)
     save_state(state)
