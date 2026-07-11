@@ -8,13 +8,22 @@ ripartire ogni 15 minuti tramite una schedulazione, non un ciclo infinito
 dentro lo script.
 
 COSA FA:
-- Ogni esecuzione controlla le N coppie di Binance con più volume nelle
-  ultime 24h (calcolate dal vivo, non una lista fissa scelta da me)
+- Ogni esecuzione controlla le N coppie con più volume nelle ultime 24h
+  (calcolate dal vivo, non una lista fissa scelta da me)
 - Se non ha una posizione aperta: cerca quella col trend rialzista più
   marcato e "compra" (simulato)
 - Se ha una posizione aperta: la vende (simulato) se il trend si inverte
-- Il capitale resta VIRTUALE: nessuna connessione al tuo account Binance
+- Il capitale resta VIRTUALE: nessuna connessione a nessun account reale
 - Se configurato, manda un messaggio Telegram ad ogni operazione simulata
+
+PERCHE' GATE.IO E NON BINANCE PER I DATI:
+Binance blocca le richieste dai server "cloud" come quelli di GitHub
+Actions (errore 451 "restricted location"), anche per i soli dati
+pubblici di mercato. Non e' un problema del nostro codice, e' una
+restrizione di Binance su certe infrastrutture. Gate.io offre dati
+altrettanto validi per questo scopo e non ha questa restrizione. Per il
+trading reale futuro, se eseguito dal tuo PC/casa invece che da un
+server cloud, Binance resta un'opzione valida.
 
 PERCHE' ANCORA IN SIMULAZIONE:
 La versione precedente (solo backtest) aveva un bug scovato solo grazie ai
@@ -49,7 +58,7 @@ N_COINS = 20                   # quante coppie (le più scambiate) analizzare ad
 QUOTE_CURRENCY = 'USDT'        # valuta di riferimento, es. BTC/USDT
 TIMEFRAME = '1h'               # intervallo delle candele per gli indicatori
 INITIAL_BALANCE = 10           # capitale virtuale di partenza
-FEE_PCT = 0.001                # commissione simulata per trade (0.1%, tipica Binance spot)
+FEE_PCT = 0.001                # commissione simulata per trade (0.1%, valore tipico spot)
 SMA_SHORT = 20
 SMA_LONG = 50
 STATE_FILE = 'stato_bot.json'  # qui il bot salva cosa sta facendo, tra un'esecuzione e l'altra
@@ -86,7 +95,7 @@ def save_state(state):
 
 
 def get_top_symbols(exchange, n, quote_currency):
-    """Restituisce le n coppie spot con più volume scambiato nelle ultime 24h su Binance."""
+    """Restituisce le n coppie spot con più volume scambiato nelle ultime 24h."""
     tickers = exchange.fetch_tickers()
     candidates = []
     for symbol, ticker in tickers.items():
@@ -185,7 +194,7 @@ def check_once(exchange, state):
 
 
 def main():
-    exchange = ccxt.binance()
+    exchange = ccxt.gateio()
     state = load_state()
     state = check_once(exchange, state)
     save_state(state)
