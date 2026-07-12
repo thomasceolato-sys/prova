@@ -1,13 +1,19 @@
 {
-  "balance": 0.0,
-  "holding_symbol": "BEAT/USDT",
-  "holding_amount": 3.3292231812577064,
+  "balance": 7.600998051787916,
+  "holding_symbol": null,
+  "holding_amount": 0.0,
   "trades": [
     {
       "tipo": "ACQUISTO",
       "symbol": "BEAT/USDT",
       "prezzo": 3.0007,
       "quando": "2026-07-11T13:20:15.521193"
+    },
+    {
+      "tipo": "VENDITA",
+      "symbol": "BEAT/USDT",
+      "prezzo": 2.2854,
+      "quando": "2026-07-12T07:39:01.398849"
     }
   ]
 }
