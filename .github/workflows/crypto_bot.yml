@@ -5,7 +5,7 @@ name: Crypto Bot Prova
 # utile per il primo test senza dover aspettare.
 on:
   schedule:
-    - cron: '*/1 * * * *'
+    - cron: '*/15 * * * *'
   workflow_dispatch:
 
 # Serve per permettere al bot di salvare lo stato aggiornato nel repository
