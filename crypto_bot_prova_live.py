@@ -85,7 +85,7 @@ def load_state():
             return json.load(f)
     return {
         'balance': INITIAL_BALANCE, 'holding_symbol': None,
-        'holding_amount': 0.0, 'trades': []
+        'holding_amount': 0.0, 'trades': [], 'market_breadth': None
     }
 
 
@@ -139,6 +139,13 @@ def check_once(exchange, state):
                 print(f"(Salto {symbol}: {e})")
 
         bullish = [a for a in analyses if a['trend'] == 1]
+
+        state['market_breadth'] = {
+            'rialziste': len(bullish),
+            'analizzate': len(analyses),
+            'quando': pd.Timestamp.now().isoformat()
+        }
+
         if bullish:
             best = max(bullish, key=lambda a: a['momentum'])
             spendable = state['balance'] * (1 - FEE_PCT)
