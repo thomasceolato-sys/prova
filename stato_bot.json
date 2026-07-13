@@ -1,7 +1,7 @@
 {
-  "balance": 0.0,
-  "holding_symbol": "WLD/USDT",
-  "holding_amount": 18.170368637798823,
+  "balance": 7.099324743068877,
+  "holding_symbol": null,
+  "holding_amount": 0.0,
   "trades": [
     {
       "tipo": "ACQUISTO",
@@ -20,6 +20,12 @@
       "symbol": "WLD/USDT",
       "prezzo": 0.4179,
       "quando": "2026-07-12T11:40:47.459287"
+    },
+    {
+      "tipo": "VENDITA",
+      "symbol": "WLD/USDT",
+      "prezzo": 0.3911,
+      "quando": "2026-07-13T22:33:33.193178"
     }
   ]
 }
