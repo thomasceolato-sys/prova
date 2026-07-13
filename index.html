@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crypto Bot — Registro</title>
+<style>
+  :root {
+    --bg: #12151c;
+    --panel: #1b1f29;
+    --panel-line: #2a2f3c;
+    --ink: #e8eaed;
+    --muted: #8b92a3;
+    --accent: #4fa89b;
+    --buy: #5fbf8f;
+    --sell: #e0785a;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .mono {
+    font-family: "JetBrains Mono", ui-monospace, "SF Mono", "Menlo", monospace;
+  }
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+    animation: fadein 0.5s ease-out;
+  }
+  @keyframes fadein { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  .eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 6px;
+  }
+  h1 {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 0 32px;
+    color: var(--ink);
+  }
+  h1 span { color: var(--muted); font-weight: 400; }
+
+  .status-panel {
+    background: var(--panel);
+    border: 1px solid var(--panel-line);
+    border-radius: 10px;
+    padding: 24px;
+    margin-bottom: 28px;
+  }
+  .status-state {
+    font-size: 26px;
+    font-weight: 600;
+    margin: 0 0 4px;
+    letter-spacing: -0.01em;
+  }
+  .status-sub {
+    color: var(--muted);
+    font-size: 14px;
+    margin: 0;
+  }
+  .hero-balance {
+    font-size: 42px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 2px 0 0;
+    line-height: 1.1;
+  }
+  .hero-balance .unit {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--muted);
+    margin-left: 6px;
+  }
+  .hero-change {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 6px 0 0;
+  }
+
+  .breadth-panel {
+    background: var(--panel);
+    border: 1px solid var(--panel-line);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-bottom: 28px;
+  }
+  .breadth-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 10px;
+  }
+  .breadth-count {
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .breadth-bar-track {
+    width: 100%;
+    height: 8px;
+    background: #262b38;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  .breadth-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--buy));
+    border-radius: 5px;
+    transition: width 0.6s ease;
+  }
+  .breadth-caption {
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 8px;
+  }
+  .status-grid {
+    display: flex;
+    gap: 32px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--panel-line);
+    flex-wrap: wrap;
+  }
+  .stat-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin: 0 0 4px;
+  }
+  .stat-value {
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .stat-value.up { color: var(--buy); }
+  .stat-value.down { color: var(--sell); }
+
+  .section-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin: 0 0 12px;
+  }
+
+  .chart-panel {
+    background: var(--panel);
+    border: 1px solid var(--panel-line);
+    border-radius: 10px;
+    padding: 20px 20px 12px;
+    margin-bottom: 28px;
+  }
+  #chart-empty { color: var(--muted); font-size: 14px; padding: 24px 0; text-align: center; }
+
+  .log-item {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 13px 0;
+    border-bottom: 1px solid var(--panel-line);
+  }
+  .log-item:last-child { border-bottom: none; }
+  .badge {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 3px 7px;
+    border-radius: 4px;
+    flex-shrink: 0;
+    width: 74px;
+    text-align: center;
+  }
+  .badge.buy { background: rgba(95,191,143,0.15); color: var(--buy); }
+  .badge.sell { background: rgba(224,120,90,0.15); color: var(--sell); }
+  .log-symbol { font-weight: 600; flex-shrink: 0; }
+  .log-price { color: var(--muted); font-size: 13.5px; }
+  .log-time {
+    margin-left: auto;
+    color: var(--muted);
+    font-size: 12.5px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .empty-state {
+    color: var(--muted);
+    font-size: 14px;
+    padding: 8px 0;
+  }
+
+  footer {
+    margin-top: 36px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.6;
+    border-top: 1px solid var(--panel-line);
+    padding-top: 16px;
+  }
+  footer b { color: #b8bece; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .wrap { animation: none; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">Prova live &middot; simulazione, nessun fondo reale</p>
+  <h1>Crypto bot &mdash; <span id="repo-name">registro operazioni</span></h1>
+
+  <div class="status-panel">
+    <p class="status-state" id="status-state">Caricamento&hellip;</p>
+    <p class="status-sub" id="status-sub"></p>
+    <p class="hero-balance mono" id="hero-balance">&mdash;</p>
+    <p class="hero-change mono" id="hero-change"></p>
+    <div class="status-grid">
+      <div>
+        <p class="stat-label">Operazioni totali</p>
+        <p class="stat-value mono" id="stat-trades">&mdash;</p>
+      </div>
+      <div>
+        <p class="stat-label">Coppie monitorate</p>
+        <p class="stat-value mono" id="stat-coins">&mdash;</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="breadth-panel">
+    <div class="breadth-row">
+      <p class="section-label" style="margin:0;">Ampiezza di mercato ora</p>
+      <p class="breadth-count mono" id="breadth-count">&mdash;</p>
+    </div>
+    <div class="breadth-bar-track">
+      <div class="breadth-bar-fill" id="breadth-bar" style="width:0%;"></div>
+    </div>
+    <p class="breadth-caption" id="breadth-caption">In attesa del primo dato</p>
+  </div>
+
+  <div class="chart-panel">
+    <p class="section-label">Saldo realizzato nel tempo</p>
+    <div id="chart-empty" style="display:none;">Ancora nessuna operazione completata: qui comparirà l'andamento del saldo dopo il primo ciclo acquisto&#8594;vendita.</div>
+    <svg id="chart-svg" width="100%" height="140" viewBox="0 0 680 140" preserveAspectRatio="none"></svg>
+  </div>
+
+  <p class="section-label">Cronologia operazioni (simulate)</p>
+  <div id="log-list"></div>
+  <div class="empty-state" id="log-empty" style="display:none;">
+    Nessuna operazione ancora. Il bot controlla il mercato ogni 15 minuti e compra solo quando trova un trend rialzista abbastanza marcato &mdash; può volerci qualche ciclo prima del primo movimento.
+  </div>
+
+  <footer>
+    Aggiornato automaticamente ogni 2 minuti &middot; ultimo caricamento: <b id="last-fetch">&mdash;</b><br>
+    Capitale interamente virtuale. Nessuna previsione, nessun punteggio di confidenza: solo cronologia reale delle decisioni prese dalle medie mobili.
+  </footer>
+</div>
+
+<script>
+const STATE_URL = 'stato_bot.json';
+const QUOTE = 'USDT';
+
+function fmt(n, decimals) {
+  return Number(n).toLocaleString('it-IT', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+}
+
+function timeAgo(iso) {
+  const d = new Date(iso);
+  return d.toLocaleString('it-IT', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
+}
+
+function render(state) {
+  const trades = state.trades || [];
+  const holding = state.holding_symbol;
+  const balance = state.balance;
+
+  document.getElementById('status-state').textContent = holding
+    ? `In posizione su ${holding}`
+    : `Liquido — in attesa di un segnale`;
+
+  const lastBuy = [...trades].reverse().find(t => t.tipo === 'ACQUISTO' && t.symbol === holding);
+  document.getElementById('status-sub').textContent = holding && lastBuy
+    ? `Comprato a ${fmt(lastBuy.prezzo, 4)} ${QUOTE} il ${timeAgo(lastBuy.quando)}`
+    : `Il capitale è tutto disponibile, pronto per la prossima occasione`;
+
+  const displayBalance = holding ? null : balance;
+  document.getElementById('hero-balance').innerHTML = displayBalance !== null
+    ? `${fmt(displayBalance, 4)} <span class="unit">${QUOTE}</span>`
+    : `In posizione`;
+
+  const initial = 10;
+  if (!holding) {
+    const change = balance - initial;
+    const changePct = (change / initial) * 100;
+    const el = document.getElementById('hero-change');
+    el.textContent = `${change >= 0 ? '+' : ''}${fmt(change, 4)} ${QUOTE}  (${changePct >= 0 ? '+' : ''}${fmt(changePct, 2)}%) dall'inizio`;
+    el.className = 'hero-change mono ' + (change >= 0 ? 'up' : 'down');
+  } else {
+    const el = document.getElementById('hero-change');
+    el.textContent = 'Valore da confermare alla vendita';
+    el.className = 'hero-change mono';
+  }
+
+  document.getElementById('stat-trades').textContent = trades.length;
+
+  const breadth = state.market_breadth;
+  const bCount = document.getElementById('breadth-count');
+  const bBar = document.getElementById('breadth-bar');
+  const bCaption = document.getElementById('breadth-caption');
+  const bCoins = document.getElementById('stat-coins');
+  if (breadth && breadth.analizzate > 0) {
+    const pct = (breadth.rialziste / breadth.analizzate) * 100;
+    bCount.textContent = `${breadth.rialziste} / ${breadth.analizzate} rialziste`;
+    bBar.style.width = `${pct}%`;
+    bCaption.textContent = `Ultima scansione completa: ${timeAgo(breadth.quando)} — solo le coppie in trend rialzista sono candidate all'acquisto`;
+    bCoins.textContent = breadth.analizzate;
+  } else {
+    bCount.textContent = '—';
+    bBar.style.width = '0%';
+    bCaption.textContent = 'Si aggiorna ad ogni ciclo in cui il bot è liquido e cerca una nuova occasione';
+    bCoins.textContent = '—';
+  }
+
+  // Log operazioni, più recenti in alto
+  const logList = document.getElementById('log-list');
+  const logEmpty = document.getElementById('log-empty');
+  logList.innerHTML = '';
+  if (trades.length === 0) {
+    logEmpty.style.display = 'block';
+  } else {
+    logEmpty.style.display = 'none';
+    [...trades].reverse().forEach(t => {
+      const row = document.createElement('div');
+      row.className = 'log-item';
+      const isBuy = t.tipo === 'ACQUISTO';
+      row.innerHTML = `
+        <span class="badge ${isBuy ? 'buy' : 'sell'}">${isBuy ? 'ACQUISTO' : 'VENDITA'}</span>
+        <span class="log-symbol">${t.symbol}</span>
+        <span class="log-price mono">${fmt(t.prezzo, 4)} ${QUOTE}</span>
+        <span class="log-time mono">${timeAgo(t.quando)}</span>
+      `;
+      logList.appendChild(row);
+    });
+  }
+
+  drawChart(trades, initial);
+
+  document.getElementById('last-fetch').textContent = new Date().toLocaleTimeString('it-IT');
+}
+
+function drawChart(trades, initial) {
+  const svg = document.getElementById('chart-svg');
+  const emptyMsg = document.getElementById('chart-empty');
+
+  // Ricostruiamo il saldo REALIZZATO: parte da 'initial', cambia solo dopo ogni VENDITA completata
+  const points = [initial];
+  let runningBalance = initial;
+  let sawSell = false;
+  trades.forEach(t => {
+    if (t.tipo === 'VENDITA') {
+      sawSell = true;
+    }
+  });
+
+  if (!sawSell) {
+    svg.innerHTML = '';
+    emptyMsg.style.display = 'block';
+    return;
+  }
+  emptyMsg.style.display = 'none';
+
+  // Per ricostruire i valori intermedi servirebbe il prezzo di acquisto/vendita di ogni ciclo;
+  // li abbiamo entrambi nei trade, quindi calcoliamo il saldo dopo ogni vendita.
+  let cash = initial;
+  let holdingAmount = 0;
+  const series = [initial];
+  trades.forEach(t => {
+    if (t.tipo === 'ACQUISTO') {
+      holdingAmount = cash / t.prezzo * 0.999; // approssimazione, solo per il grafico
+      cash = 0;
+    } else if (t.tipo === 'VENDITA') {
+      cash = holdingAmount * t.prezzo * 0.999;
+      holdingAmount = 0;
+      series.push(cash);
+    }
+  });
+
+  const w = 680, h = 140, pad = 8;
+  const min = Math.min(...series);
+  const max = Math.max(...series);
+  const range = (max - min) || 1;
+
+  const stepX = series.length > 1 ? (w - pad * 2) / (series.length - 1) : 0;
+  const coords = series.map((v, i) => {
+    const x = pad + i * stepX;
+    const y = h - pad - ((v - min) / range) * (h - pad * 2);
+    return [x, y];
+  });
+
+  const linePath = coords.map((c, i) => {
+    if (i === 0) return `M ${c[0]},${c[1]}`;
+    const prev = coords[i - 1];
+    const midX = (prev[0] + c[0]) / 2;
+    return `C ${midX},${prev[1]} ${midX},${c[1]} ${c[0]},${c[1]}`;
+  }).join(' ');
+  const areaPath = `${linePath} L ${coords[coords.length - 1][0]},${h - pad} L ${coords[0][0]},${h - pad} Z`;
+  const dots = coords.map(([x, y]) => `<circle cx="${x}" cy="${y}" r="3.5" fill="#4fa89b" stroke="#12151c" stroke-width="1.5" />`).join('');
+
+  svg.innerHTML = `
+    <defs>
+      <linearGradient id="areaFill" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#4fa89b" stop-opacity="0.25" />
+        <stop offset="100%" stop-color="#4fa89b" stop-opacity="0" />
+      </linearGradient>
+    </defs>
+    <path d="${areaPath}" fill="url(#areaFill)" stroke="none" />
+    <path d="${linePath}" fill="none" stroke="#4fa89b" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" />
+    ${dots}
+  `;
+}
+
+function load() {
+  fetch(STATE_URL + '?t=' + Date.now())
+    .then(r => {
+      if (!r.ok) throw new Error('stato_bot.json non trovato (ancora nessuna esecuzione, o file non nel percorso atteso)');
+      return r.json();
+    })
+    .then(render)
+    .catch(err => {
+      document.getElementById('status-state').textContent = 'In attesa del primo dato';
+      document.getElementById('status-sub').textContent = err.message;
+    });
+}
+
+load();
+setInterval(load, 120000);
+</script>
+</body>
+</html>
