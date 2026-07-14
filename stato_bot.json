@@ -1,7 +1,7 @@
 {
-  "balance": 6.736434953654034,
-  "holding_symbol": null,
-  "holding_amount": 0.0,
+  "balance": 0.0,
+  "holding_symbol": "DRV/USDT",
+  "holding_amount": 43.501606455723206,
   "trades": [
     {
       "tipo": "ACQUISTO",
@@ -38,11 +38,17 @@
       "symbol": "ALLO/USDT",
       "prezzo": 0.36358,
       "quando": "2026-07-14T20:43:19.880546"
+    },
+    {
+      "tipo": "ACQUISTO",
+      "symbol": "DRV/USDT",
+      "prezzo": 0.1547,
+      "quando": "2026-07-14T23:37:34.488634"
     }
   ],
   "market_breadth": {
-    "rialziste": 4,
+    "rialziste": 17,
     "analizzate": 20,
-    "quando": "2026-07-14T06:37:10.939520"
+    "quando": "2026-07-14T23:37:34.488583"
   }
 }
