@@ -1,7 +1,7 @@
 {
-  "balance": 0.0,
-  "holding_symbol": "ALLO/USDT",
-  "holding_amount": 18.546614587672092,
+  "balance": 6.736434953654034,
+  "holding_symbol": null,
+  "holding_amount": 0.0,
   "trades": [
     {
       "tipo": "ACQUISTO",
@@ -32,6 +32,12 @@
       "symbol": "ALLO/USDT",
       "prezzo": 0.3824,
       "quando": "2026-07-14T06:37:10.939575"
+    },
+    {
+      "tipo": "VENDITA",
+      "symbol": "ALLO/USDT",
+      "prezzo": 0.36358,
+      "quando": "2026-07-14T20:43:19.880546"
     }
   ],
   "market_breadth": {
