@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
-<head><title>Bot Scanner Smart 50€</title>
+<head>
+<title>Bot Scanner Smart 50€</title>
 <style>
 body{font-family:Arial;background:#111;color:#eee;padding:20px}
 .card{background:#222;padding:15px;border-radius:10px;margin:10px 0}
-.green{color:#0f0}.red{color:#f00}
+.green{color:#0f0}.red{color:#f00}.yellow{color:#ff0}
 </style>
 </head>
 <body>
@@ -13,19 +14,37 @@ body{font-family:Arial;background:#111;color:#eee;padding:20px}
 
 <script>
 async function aggiorna(){
-  let res = await fetch('dashboard_data.json?' + new Date().getTime());
-  let d = await res.json();
-  let html = `<div class="card"><h2>Saldo Totale: ${d.saldo_eur.toFixed(2)} €</h2>
-  <p>Fear & Greed: ${d.fear_greed}</p></div>`;
-  
-  html += `<div class="card"><h3>Posizioni Aperte: ${d.posizioni.length}/${3}</h3>`;
-  d.posizioni.forEach(p=>{
-    html += `<p>${p.symbol} - Investito: ${p.investito.toFixed(2)}€</p>`;
-  });
-  html += `</div><p>Ultimo aggiornamento: ${d.timestamp}</p>`;
-  document.getElementById('data').innerHTML = html;
+  try{
+    let res = await fetch('dashboard_data.json?' + new Date().getTime());
+    if(!res.ok) throw new Error("File non trovato");
+    let d = await res.json();
+    
+    let html = `<div class="card">
+      <h2>Saldo Totale: ${d.saldo_eur.toFixed(2)} €</h2>
+      <p>Fear & Greed: <b>${d.fear_greed}</b></p>
+    </div>`;
+    
+    html += `<div class="card"><h3>Posizioni Aperte: ${d.posizioni.length}/${3}</h3>`;
+    if(d.posizioni.length == 0){
+      html += `<p class="yellow">In attesa di segnali...</p>`;
+    }
+    d.posizioni.forEach(p=>{
+      html += `<p>${p.symbol} - Investito: ${p.investito.toFixed(2)}€</p>`;
+    });
+    html += `</div><p>Ultimo aggiornamento: ${d.timestamp}</p>`;
+    document.getElementById('data').innerHTML = html;
+    
+  }catch(e){
+    document.getElementById('data').innerHTML = 
+      `<div class="card red">
+        <h3>Attesa primo ciclo del bot...</h3>
+        <p>Il bot deve girare 1 volta per creare i dati. Aspetta 5 min e aggiorna.</p>
+        <p>Errore: ${e.message}</p>
+      </div>`;
+  }
 }
-aggiorna(); setInterval(aggiorna, 30000);
+aggiorna(); 
+setInterval(aggiorna, 30000); // aggiorna ogni 30s
 </script>
 </body>
 </html>
