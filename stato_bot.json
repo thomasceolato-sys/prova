@@ -1,7 +1,5 @@
 {
   "balance": 0.0,
-  "holding_symbol": "DRV/USDT",
-  "holding_amount": 43.501606455723206,
   "trades": [
     {
       "tipo": "ACQUISTO",
@@ -50,5 +48,14 @@
     "rialziste": 17,
     "analizzate": 20,
     "quando": "2026-07-14T23:37:34.488583"
-  }
+  },
+  "positions": [
+    {
+      "symbol": "DRV/USDT",
+      "amount": 43.501606455723206,
+      "prezzo_acquisto": 0.1547,
+      "quando": "2026-07-14T23:37:34.488634"
+    }
+  ],
+  "fear_greed": null
 }
