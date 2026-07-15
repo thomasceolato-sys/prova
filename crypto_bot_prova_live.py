@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import time
 import json
+import os
 from datetime import datetime
 
 CAPITALE_INIZIALE = 50.0
@@ -14,6 +15,7 @@ TIMEFRAME = "1h"
 COMMISSIONE = 0.001
 
 FILE_POSIZIONI = "posizioni.json"
+FILE_DASHBOARD = "dashboard_data.json" # AGGIUNTO
 
 def get_top_100():
     try:
@@ -89,6 +91,16 @@ def carica_posizioni():
         with open(FILE_POSIZIONI, 'r') as f: return json.load(f)
     except: return []
 
+def salva_dashboard(saldo_eur, fg, posizioni):
+    data = {
+        "timestamp": str(datetime.now()),
+        "saldo_eur": saldo_eur,
+        "fear_greed": fg,
+        "posizioni": posizioni,
+        "status": "OK"
+    }
+    with open(FILE_DASHBOARD, 'w') as f: json.dump(data, f)
+
 def main():
     print(f"[{datetime.now()}] Avvio Scanner Smart 50€")
     posizioni = carica_posizioni()
@@ -97,6 +109,10 @@ def main():
     eur = get_eur_usdt()
     print(f"Fear & Greed: {fg} | Tasso EUR: {eur:.4f} | Capitale libero: {capitale_libero:.2f}€")
     
+    # CREA SUBITO LA DASHBOARD ANCHE SE NON FA NULLA
+    salva_dashboard(capitale_libero * eur, fg, posizioni)
+    
+    # 1. GESTISCI POSIZIONI
     for p in posizioni[:]:
         r = requests.get(f"https://api.binance.com/api/v3/ticker/price?symbol={p['symbol']}")
         if r.status_code!= 200: continue
@@ -107,16 +123,17 @@ def main():
             posizioni.remove(p)
             capitale_libero += p['investito'] * (1 + pnl - COMMISSIONE)
     
+    # 2. CERCA NUOVE ENTRATE
     if len(posizioni) < MAX_POSITIONS and fg < 75 and capitale_libero > 15:
         print("Scannerizzo...")
         candidati = []
-        for sym in get_top_100()[:20]: # ridotto a 20 per sicurezza
+        for sym in get_top_100()[:20]:
             score, price, motivi = valuta_coin(sym)
             if score >= 3:
                 candidati.append({"symbol": sym, "price": price, "score": score})
             else:
                 print(f"SCARTATO {sym}: {motivi}")
-            time.sleep(0.2) # pausa per non essere bannato
+            time.sleep(0.2)
         
         candidati = sorted(candidati, key=lambda x: x['score'], reverse=True)
         for c in candidati[:MAX_POSITIONS - len(posizioni)]:
@@ -127,6 +144,7 @@ def main():
     
     salva_posizioni(posizioni)
     
+    # 3. AGGIORNA DASHBOARD FINALE
     totale_usdt = capitale_libero
     for p in posizioni:
         r = requests.get(f"https://api.binance.com/api/v3/ticker/price?symbol={p['symbol']}")
@@ -134,13 +152,7 @@ def main():
             prezzo_att = float(r.json()['price'])
             totale_usdt += p['investito'] * (1 + (prezzo_att - p['entry'])/p['entry'])
     
-    data = {
-        "timestamp": str(datetime.now()),
-        "saldo_eur": totale_usdt * eur,
-        "fear_greed": fg,
-        "posizioni": posizioni
-    }
-    with open("dashboard_data.json", 'w') as f: json.dump(data, f)
+    salva_dashboard(totale_usdt * eur, fg, posizioni)
     print("Ciclo completato")
 
 if __name__ == "__main__":
