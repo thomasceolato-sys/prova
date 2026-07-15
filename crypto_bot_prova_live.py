@@ -16,10 +16,16 @@ COMMISSIONE = 0.001
 FILE_POSIZIONI = "posizioni.json"
 
 def get_top_100():
-    url = "https://api.coingecko.com/api/v3/coins/markets"
-    params = {"vs_currency": "usdt", "order": "volume_desc", "per_page": SCANNER_TOP_N, "page": 1}
-    r = requests.get(url, params=params).json()
-    return [x['symbol'].upper() + "USDT" for x in r if x['total_volume'] > 5000000]
+    try:
+        url = "https://api.coingecko.com/api/v3/coins/markets"
+        params = {"vs_currency": "usdt", "order": "volume_desc", "per_page": SCANNER_TOP_N, "page": 1}
+        r = requests.get(url, params=params, timeout=10)
+        if r.status_code!= 200: raise Exception("Ban")
+        data = r.json()
+        return [x['symbol'].upper() + "USDT" for x in data if x.get('total_volume',0) > 5000000]
+    except:
+        print("CoinGecko bloccato. Uso lista TOP10")
+        return ["BTCUSDT","ETHUSDT","BNBUSDT","SOLUSDT","XRPUSDT","DOGEUSDT","TONUSDT","ADAUSDT","TRXUSDT","SHIBUSDT"]
 
 def get_klines(symbol):
     url = f"https://api.binance.com/api/v3/klines"
@@ -33,16 +39,17 @@ def get_klines(symbol):
     return df
 
 def get_fear_greed():
-    r = requests.get("https://api.alternative.me/fng/").json()
-    return int(r['data'][0]['value'])
+    try:
+        r = requests.get("https://api.alternative.me/fng/").json()
+        return int(r['data'][0]['value'])
+    except: return 50
 
-def get_eur_usdt(): # FIX QUI
+def get_eur_usdt():
     try:
         r = requests.get("https://api.exchangerate-api.com/v4/latest/USD").json()
         usd_to_eur = r['rates']['EUR']
         return 1 / usd_to_eur
-    except:
-        return 0.92
+    except: return 0.92
 
 def calc_indicatori(df):
     if len(df) < 200: return None
@@ -101,14 +108,15 @@ def main():
             capitale_libero += p['investito'] * (1 + pnl - COMMISSIONE)
     
     if len(posizioni) < MAX_POSITIONS and fg < 75 and capitale_libero > 15:
-        print("Scannerizzo top 100...")
+        print("Scannerizzo...")
         candidati = []
-        for sym in get_top_100()[:30]: # scansiona solo 30 per non andare in ban
+        for sym in get_top_100()[:20]: # ridotto a 20 per sicurezza
             score, price, motivi = valuta_coin(sym)
             if score >= 3:
                 candidati.append({"symbol": sym, "price": price, "score": score})
             else:
                 print(f"SCARTATO {sym}: {motivi}")
+            time.sleep(0.2) # pausa per non essere bannato
         
         candidati = sorted(candidati, key=lambda x: x['score'], reverse=True)
         for c in candidati[:MAX_POSITIONS - len(posizioni)]:
