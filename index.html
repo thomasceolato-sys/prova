@@ -1,50 +1,64 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>Bot Scanner Smart 50€</title>
+<head><title>Bot Scanner Pro</title>
 <style>
-body{font-family:Arial;background:#111;color:#eee;padding:20px}
-.card{background:#222;padding:15px;border-radius:10px;margin:10px 0}
-.green{color:#0f0}.red{color:#f00}.yellow{color:#ff0}
+body{font-family:'Segoe UI';background:#0d1117;color:#c9d1d9;margin:0;padding:20px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.card{background:#161b22;border:1px solid #30363d;padding:15px;border-radius:8px}
+h2{border-bottom:1px solid #30363d;padding-bottom:10px}
+.green{color:#3fb950}.red{color:#f85149}.yellow{color:#d29922}
+table{width:100%;border-collapse:collapse;font-size:12px}
+td,th{padding:6px;border-bottom:1px solid #21262d;text-align:left}
+.log{background:#000;padding:10px;height:200px;overflow-y:scroll;font-family:monospace;font-size:11px}
 </style>
 </head>
 <body>
-<h1>🤖 Bot Scanner Smart</h1>
+<h1>🤖 Bot Scanner Smart Pro - 50€</h1>
 <div id="data">Caricamento...</div>
 
 <script>
 async function aggiorna(){
   try{
     let res = await fetch('dashboard_data.json?' + new Date().getTime());
-    if(!res.ok) throw new Error("File non trovato");
     let d = await res.json();
+    let profit = d.saldo_eur - 50;
+    let profitClass = profit >= 0? 'green' : 'red';
     
-    let html = `<div class="card">
-      <h2>Saldo Totale: ${d.saldo_eur.toFixed(2)} €</h2>
+    let html = `<div class="grid">
+    <div class="card"><h2>📊 Portafoglio</h2>
+      <h3>Saldo: ${d.saldo_eur.toFixed(2)} €</h3>
+      <p class="${profitClass}">Profitto: ${profit.toFixed(2)} € (${(profit/50*100).toFixed(2)}%)</p>
       <p>Fear & Greed: <b>${d.fear_greed}</b></p>
+      <p>Posizioni: ${d.posizioni.length}/${3}</p>
+    </div>
+    <div class="card"><h2>📈 Ultime Operazioni</h2>
+      <p class="green">Comprati: ${d.comprati.map(c=>c.symbol).join(', ') || 'Nessuno'}</p>
+      <p class="red">Venduti: ${d.venduti.map(v=>v.symbol+' '+v.pnl).join(', ') || 'Nessuno'}</p>
     </div>`;
     
-    html += `<div class="card"><h3>Posizioni Aperte: ${d.posizioni.length}/${3}</h3>`;
-    if(d.posizioni.length == 0){
-      html += `<p class="yellow">In attesa di segnali...</p>`;
-    }
+    html += `<div class="card"><h2>💼 Posizioni Aperte</h2><table><tr><th>Coin</th><th>Investito</th><th>PnL</th></tr>`;
     d.posizioni.forEach(p=>{
-      html += `<p>${p.symbol} - Investito: ${p.investito.toFixed(2)}€</p>`;
+      let c = p.pnl >= 0? 'green' : 'red';
+      html += `<tr><td>${p.symbol}</td><td>${p.investito.toFixed(2)}€</td><td class="${c}">${p.pnl.toFixed(2)}%</td></tr>`;
     });
-    html += `</div><p>Ultimo aggiornamento: ${d.timestamp}</p>`;
-    document.getElementById('data').innerHTML = html;
+    html += `</table></div>`;
     
+    html += `<div class="card"><h2>🚫 Top 10 Scartati</h2><table><tr><th>Coin</th><th>Motivo</th></tr>`;
+    d.scartati.forEach(s=>{
+      html += `<tr><td>${s.symbol}</td><td class="yellow">${s.motivo}</td></tr>`;
+    });
+    html += `</table></div>`;
+    
+    html += `<div class="card" style="grid-column:1/3"><h2>📝 Log Attività</h2><div class="log">`;
+    d.log.forEach(l=>{ html += l + '<br>' });
+    html += `</div></div></div><p>Ultimo agg: ${d.timestamp}</p>`;
+    
+    document.getElementById('data').innerHTML = html;
   }catch(e){
-    document.getElementById('data').innerHTML = 
-      `<div class="card red">
-        <h3>Attesa primo ciclo del bot...</h3>
-        <p>Il bot deve girare 1 volta per creare i dati. Aspetta 5 min e aggiorna.</p>
-        <p>Errore: ${e.message}</p>
-      </div>`;
+    document.getElementById('data').innerHTML = `<div class="card red">Errore: ${e.message}</div>`;
   }
 }
-aggiorna(); 
-setInterval(aggiorna, 30000); // aggiorna ogni 30s
+aggiorna(); setInterval(aggiorna, 15000);
 </script>
 </body>
 </html>
