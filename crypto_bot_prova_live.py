@@ -10,11 +10,19 @@ dentro lo script.
 COSA FA:
 - Ogni esecuzione controlla le N coppie con più volume nelle ultime 24h
   (calcolate dal vivo, non una lista fissa scelta da me)
-- Se non ha una posizione aperta: cerca quella col trend rialzista più
-  marcato e "compra" (simulato)
-- Se ha una posizione aperta: la vende (simulato) se il trend si inverte
+- Vende le posizioni aperte il cui trend si è invertito
+- Se ci sono "slot" liberi (vedi MAX_POSITIONS) e liquidità: cerca nuove
+  occasioni tra le coppie in trend rialzista e apre nuove posizioni
 - Il capitale resta VIRTUALE: nessuna connessione a nessun account reale
 - Se configurato, manda un messaggio Telegram ad ogni operazione simulata
+
+MAX_POSITIONS - posizioni multiple in parallelo:
+Il codice supporta più posizioni aperte insieme, ma di default
+MAX_POSITIONS = 1: con 10€ di capitale, dividerlo su più operazioni
+significa commissioni più pesanti in proporzione e rischio di scendere
+sotto l'importo minimo per operazione richiesto da molti exchange. Il
+supporto c'è già pronto: alza semplicemente MAX_POSITIONS quando il
+capitale reale sarà più alto e avrà senso diversificare.
 
 PERCHE' GATE.IO E NON BINANCE PER I DATI:
 Binance blocca le richieste dai server "cloud" come quelli di GitHub
@@ -26,9 +34,10 @@ trading reale futuro, se eseguito dal tuo PC/casa invece che da un
 server cloud, Binance resta un'opzione valida.
 
 PERCHE' ANCORA IN SIMULAZIONE:
-La versione precedente (solo backtest) aveva un bug scovato solo grazie ai
-test con dati sintetici. Meglio osservare anche questa versione con soldi
-finti per un po' prima di pensare a collegare quelli veri.
+Le versioni precedenti (solo backtest) hanno già mostrato più di un bug
+scovato solo grazie ai test con dati sintetici. Meglio osservare anche
+questa versione con soldi finti per un po' prima di pensare a collegare
+quelli veri.
 
 CONFIGURAZIONE TELEGRAM (opzionale):
 Il bot legge il token e il chat id dalle variabili d'ambiente TELEGRAM_TOKEN
@@ -61,6 +70,7 @@ INITIAL_BALANCE = 10           # capitale virtuale di partenza
 FEE_PCT = 0.001                # commissione simulata per trade (0.1%, valore tipico spot)
 SMA_SHORT = 20
 SMA_LONG = 50
+MAX_POSITIONS = 1              # posizioni aperte in parallelo. Vedi nota sopra: a 10€ conviene 1.
 STATE_FILE = 'stato_bot.json'  # qui il bot salva cosa sta facendo, tra un'esecuzione e l'altra
 
 TELEGRAM_TOKEN = os.environ.get('TELEGRAM_TOKEN', '')
@@ -79,13 +89,45 @@ def notify(message):
 
 
 def load_state():
-    """Recupera lo stato salvato dall'esecuzione precedente, altrimenti riparte da zero."""
+    """
+    Recupera lo stato salvato dall'esecuzione precedente, altrimenti riparte
+    da zero. Migra automaticamente il vecchio formato a posizione singola
+    (holding_symbol/holding_amount) al nuovo formato a lista di posizioni,
+    così una posizione già aperta con la versione precedente non si perde.
+    """
     if os.path.exists(STATE_FILE):
         with open(STATE_FILE, 'r') as f:
-            return json.load(f)
+            state = json.load(f)
+
+        if 'positions' not in state:
+            positions = []
+            if state.get('holding_symbol'):
+                symbol = state['holding_symbol']
+                buy_price = None
+                buy_time = None
+                for t in reversed(state.get('trades', [])):
+                    if t.get('tipo') == 'ACQUISTO' and t.get('symbol') == symbol:
+                        buy_price = t.get('prezzo')
+                        buy_time = t.get('quando')
+                        break
+                positions.append({
+                    'symbol': symbol,
+                    'amount': state.get('holding_amount', 0.0),
+                    'prezzo_acquisto': buy_price,
+                    'quando': buy_time
+                })
+            state['positions'] = positions
+            state.pop('holding_symbol', None)
+            state.pop('holding_amount', None)
+
+        state.setdefault('trades', [])
+        state.setdefault('market_breadth', None)
+        state.setdefault('fear_greed', None)
+        return state
+
     return {
-        'balance': INITIAL_BALANCE, 'holding_symbol': None,
-        'holding_amount': 0.0, 'trades': [], 'market_breadth': None
+        'balance': INITIAL_BALANCE, 'positions': [],
+        'trades': [], 'market_breadth': None, 'fear_greed': None
     }
 
 
@@ -125,9 +167,61 @@ def analyze_symbol(exchange, symbol, timeframe, short_window, long_window):
     return {'symbol': symbol, 'trend': trend, 'momentum': momentum, 'price': last_price}
 
 
+def get_fear_greed_index():
+    """
+    Recupera l'indice Fear & Greed crypto da alternative.me (dato pubblico
+    reale, aggregato da volatilità, volumi, social, dominance e trend di
+    ricerca - non generato da noi, non un punteggio di 'confidenza' inventato).
+    Dati forniti da alternative.me.
+    """
+    try:
+        response = requests.get('https://api.alternative.me/fng/?limit=1', timeout=10)
+        response.raise_for_status()
+        entry = response.json()['data'][0]
+        return {'valore': int(entry['value']), 'classificazione': entry['value_classification']}
+    except Exception as e:
+        print(f"(Avviso: Fear & Greed Index non disponibile questo ciclo: {e})")
+        return None
+
+
 def check_once(exchange, state):
-    """Un singolo ciclo di analisi e decisione."""
-    if state['holding_symbol'] is None:
+    """Un singolo ciclo di analisi e decisione, con supporto a più posizioni in parallelo."""
+    positions = state['positions']
+
+    # 1) Controlliamo le posizioni aperte: vendiamo quelle il cui trend si è invertito
+    still_open = []
+    for p in positions:
+        try:
+            current = analyze_symbol(exchange, p['symbol'], TIMEFRAME, SMA_SHORT, SMA_LONG)
+        except Exception as e:
+            current = None
+            print(f"(Errore nel controllare {p['symbol']}: {e})")
+
+        if current is None:
+            print(f"Dati non disponibili per {p['symbol']} in questo ciclo, riprovo al prossimo.")
+            still_open.append(p)
+        elif current['trend'] == -1:
+            proceeds = p['amount'] * current['price'] * (1 - FEE_PCT)
+            state['trades'].append({
+                'tipo': 'VENDITA', 'symbol': p['symbol'],
+                'prezzo': current['price'], 'quando': pd.Timestamp.now().isoformat()
+            })
+            notify(
+                f"[PROVA - soldi finti] VENDITA simulata: "
+                f"{p['symbol']} a {current['price']:.4f} {QUOTE_CURRENCY} "
+                f"-> +{proceeds:.4f} {QUOTE_CURRENCY} al saldo"
+            )
+            state['balance'] = state['balance'] + proceeds
+        else:
+            print(f"Continuo a tenere {p['symbol']}, trend ancora rialzista o neutro.")
+            still_open.append(p)
+
+    positions = still_open
+    open_symbols = {p['symbol'] for p in positions}
+    available_slots = MAX_POSITIONS - len(positions)
+
+    # 2) Se abbiamo slot liberi e liquidità, cerchiamo nuove occasioni
+    if available_slots > 0 and state['balance'] > 0:
         symbols = get_top_symbols(exchange, N_COINS, QUOTE_CURRENCY)
         analyses = []
         for symbol in symbols:
@@ -138,65 +232,46 @@ def check_once(exchange, state):
             except Exception as e:
                 print(f"(Salto {symbol}: {e})")
 
-        bullish = [a for a in analyses if a['trend'] == 1]
-
         state['market_breadth'] = {
-            'rialziste': len(bullish),
+            'rialziste': len([a for a in analyses if a['trend'] == 1]),
             'analizzate': len(analyses),
             'quando': pd.Timestamp.now().isoformat()
         }
 
-        if bullish:
-            best = max(bullish, key=lambda a: a['momentum'])
-            spendable = state['balance'] * (1 - FEE_PCT)
-            amount = spendable / best['price']
+        fg = get_fear_greed_index()
+        state['fear_greed'] = fg
+        skip_for_greed = fg is not None and fg['classificazione'] == 'Extreme Greed'
 
-            state['holding_symbol'] = best['symbol']
-            state['holding_amount'] = amount
-            state['balance'] = 0.0
-            state['trades'].append({
-                'tipo': 'ACQUISTO', 'symbol': best['symbol'],
-                'prezzo': best['price'], 'quando': pd.Timestamp.now().isoformat()
-            })
-            notify(
-                f"[PROVA - soldi finti] ACQUISTO simulato: "
-                f"{best['symbol']} a {best['price']:.4f} {QUOTE_CURRENCY}"
+        bullish = [a for a in analyses if a['trend'] == 1 and a['symbol'] not in open_symbols]
+
+        if bullish and skip_for_greed:
+            print(
+                f"Trend rialzista trovato, ma Fear & Greed Index in 'Extreme Greed' "
+                f"({fg['valore']}/100): salto nuovi acquisti per prudenza questo ciclo."
             )
+        elif bullish:
+            candidates = sorted(bullish, key=lambda a: -a['momentum'])[:available_slots]
+            budget_per_position = state['balance'] / len(candidates)
+            for c in candidates:
+                spendable = budget_per_position * (1 - FEE_PCT)
+                amount = spendable / c['price']
+                positions.append({
+                    'symbol': c['symbol'], 'amount': amount,
+                    'prezzo_acquisto': c['price'], 'quando': pd.Timestamp.now().isoformat()
+                })
+                state['trades'].append({
+                    'tipo': 'ACQUISTO', 'symbol': c['symbol'],
+                    'prezzo': c['price'], 'quando': pd.Timestamp.now().isoformat()
+                })
+                notify(
+                    f"[PROVA - soldi finti] ACQUISTO simulato: "
+                    f"{c['symbol']} a {c['price']:.4f} {QUOTE_CURRENCY}"
+                )
+            state['balance'] = state['balance'] - (budget_per_position * len(candidates))
         else:
             print("Nessuna coppia in trend rialzista al momento. Resto liquido.")
 
-    else:
-        try:
-            current = analyze_symbol(
-                exchange, state['holding_symbol'], TIMEFRAME, SMA_SHORT, SMA_LONG
-            )
-        except Exception as e:
-            current = None
-            print(f"(Errore nel controllare {state['holding_symbol']}: {e})")
-
-        if current is None:
-            print(
-                f"Dati non disponibili per {state['holding_symbol']} "
-                f"in questo ciclo, riprovo al prossimo."
-            )
-        elif current['trend'] == -1:
-            proceeds = state['holding_amount'] * current['price'] * (1 - FEE_PCT)
-            state['trades'].append({
-                'tipo': 'VENDITA', 'symbol': state['holding_symbol'],
-                'prezzo': current['price'], 'quando': pd.Timestamp.now().isoformat()
-            })
-            notify(
-                f"[PROVA - soldi finti] VENDITA simulata: "
-                f"{state['holding_symbol']} a {current['price']:.4f} "
-                f"{QUOTE_CURRENCY} -> saldo virtuale: "
-                f"{proceeds:.4f} {QUOTE_CURRENCY}"
-            )
-            state['balance'] = proceeds
-            state['holding_symbol'] = None
-            state['holding_amount'] = 0.0
-        else:
-            print(f"Continuo a tenere {state['holding_symbol']}, trend ancora rialzista o neutro.")
-
+    state['positions'] = positions
     return state
 
 
