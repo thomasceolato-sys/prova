@@ -20,22 +20,33 @@ def log(msg):
 
 def get_top_150():
     try:
-        # Prende 150 coin per volume. Le più tradate
         url = "https://api.coingecko.com/api/v3/coins/markets"
         params = {"vs_currency": "usdt", "order": "volume_desc", "per_page": SCANNER_TOP_N, "page": 1}
         r = requests.get(url, params=params, timeout=15)
-        coins = [x['symbol'].upper() + "USDT" for x in r.json() if x.get('total_volume',0) > 1000000]
+
+        if r.status_code!= 200:
+            log(f"CoinGecko errore {r.status_code}. Uso TOP30 fisse")
+            raise Exception("API down")
+
+        data = r.json()
+        if not isinstance(data, list):
+            log(f"CoinGecko risposta strana: {data}")
+            raise Exception("Risposta non valida")
+
+        coins = [x['symbol'].upper() + "USDT" for x in data if isinstance(x, dict) and x.get('total_volume',0) > 1000000]
         log(f"Trovate {len(coins)} coin da scannerizzare")
         return coins
     except Exception as e:
-        log(f"Errore CoinGecko: {e}. Uso TOP10 fisse")
-        return ["BTCUSDT","ETHUSDT","BNBUSDT","SOLUSDT","XRPUSDT","DOGEUSDT","TONUSDT","ADAUSDT","TRXUSDT","SHIBUSDT"]
+        log(f"Errore CoinGecko: {e}. Uso TOP30 fisse")
+        # Lista fissa di 30 coin top che hanno sempre i dati
+        return ["BTCUSDT","ETHUSDT","BNBUSDT","SOLUSDT","XRPUSDT","DOGEUSDT","TONUSDT","ADAUSDT","TRXUSDT","SHIBUSDT","AVAXUSDT","DOTUSDT","LINKUSDT","MATICUSDT","LTCUSDT","BCHUSDT","ATOMUSDT","XLMUSDT","XMRUSDT","ETCUSDT","FILUSDT","APTUSDT","OPUSDT","ARBUSDT","SUIUSDT","INJUSDT","SEIUSDT","TIAUSDT","PYTHUSDT","JUPUSDT"]
 
 def get_klines(symbol):
     try:
         url = f"https://api.binance.com/api/v3/klines"
         params = {"symbol": symbol, "interval": TIMEFRAME, "limit": 200}
         r = requests.get(url, params=params, timeout=5)
+        time.sleep(0.2) # RALLENTIAMO PER NON FARCI BANNARE
         if r.status_code!= 200: return pd.DataFrame()
         df = pd.DataFrame(r.json(), columns=['t','o','h','l','c','v','ct','qv','n','tbb','tbq','x'])
         df['c'] = df['c'].astype(float); df['v'] = df['v'].astype(float)
@@ -70,7 +81,6 @@ def calc_indicatori(df):
 
 def valuta_coin(symbol):
     df = get_klines(symbol)
-    time.sleep(0.1) # PAUSA per non farci bannare da Binance
     last = calc_indicatori(df)
     if last is None: return 0, 0, ["Pochi dati"], {}
 
@@ -155,7 +165,7 @@ def main():
             posizioni.append({"symbol": c['symbol'], "entry": c['price'], "investito": investito, "pnl": 0})
             capitale_libero -= investito
     else:
-        log("Condizioni di acquisto non rispettate")
+        log("Condizioni di acquisto non rispettate: F&G alto o poche posizioni libere")
 
     # 3. SALVATAGGIO FINALE
     salva_posizioni(posizioni)
