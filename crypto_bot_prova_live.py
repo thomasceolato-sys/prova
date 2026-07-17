@@ -6,7 +6,7 @@ from datetime import datetime
 CAPITALE = 50.00
 MAX_POSIZIONI = 3
 TARGET_COINS = 150
-F_G_SOGLIA_MIN = 20 # Non compra se F&G < 20
+F_G_SOGLIA_MIN = 10 # Abbassata per test
 CAPITALE_PER_TRADE = CAPITALE / MAX_POSIZIONI
 
 saldo = 57.27
@@ -15,7 +15,6 @@ posizioni_aperte = []
 
 # ========== FUNZIONI DATI ==========
 def get_fear_greed():
-    """Prende F&G da alternative.me - gratis e senza limiti"""
     try:
         url = "https://api.alternative.me/fng/"
         r = requests.get(url, timeout=5)
@@ -24,12 +23,10 @@ def get_fear_greed():
         return 50
 
 def get_binance_data():
-    """Prende 150 coin da Binance in 1 chiamata sola"""
     try:
         url = "https://api.binance.com/api/v3/ticker/24hr"
         r = requests.get(url, timeout=10)
         data = r.json()
-
         coins = []
         for coin in data:
             if coin['symbol'].endswith('USDT'):
@@ -39,32 +36,30 @@ def get_binance_data():
                     'volume': float(coin['quoteVolume']),
                     'change_24h': float(coin['priceChangePercent'])
                 })
-        # Ordina per volume e prendi le top 150
         coins.sort(key=lambda x: x['volume'], reverse=True)
         return coins[:TARGET_COINS]
     except Exception as e:
         log(f"Errore Binance: {e}")
         return []
 
-# ========== LOGICA SCANNER ==========
+# ========== LOGICA SCANNER FIXATA ==========
 def valuta_coin(coin, fg):
-    """La tua logica di scoring. Modificala come vuoi"""
     score = 0
     motivi = []
 
-    # Esempio regole base
-    if coin['volume'] > 10000000: # 10M volume
+    # Meno restrittivo per test
+    if coin['volume'] > 5000000: # 5M invece di 10M
         score += 30
-        motivi.append("Volume alto")
+        motivi.append("Volume ok")
 
-    if abs(coin['change_24h']) > 5: # Movimento >5%
+    if abs(coin['change_24h']) > 2: # 2% invece di 5%
         score += 25
-        motivi.append("Volatilità")
+        motivi.append("Movimento")
 
-    if fg > 50: # Mercato greedy
+    if fg > 40: # 40 invece di 50
         score += 20
 
-    if coin['change_24h'] > 0:
+    if coin['change_24h'] > -2: # Accetta anche laterali
         score += 25
 
     return score, motivi
@@ -73,7 +68,7 @@ def log(messaggio):
     ora = datetime.now().strftime("%H:%M:%S")
     print(f"[{ora}] {messaggio}")
 
-def stampa_portafoglio():
+def stampa_portafoglio(fg):
     print("\n🤖 Bot Scanner Smart Pro - 50€")
     print("📊 Portafoglio")
     print(f"Saldo: {saldo:.2f} €")
@@ -83,11 +78,10 @@ def stampa_portafoglio():
 
 # ========== MAIN ==========
 if __name__ == "__main__":
-    log("Avvio Scanner MAX")
+    log("Avvio Scanner MAX - VERSIONE BINANCE")
     fg = get_fear_greed()
     log(f"F&G: {fg} | Capitale Libero: {CAPITALE:.2f}€")
-
-    stampa_portafoglio()
+    stampa_portafoglio(fg)
 
     log("Inizio scansione...")
     coins = get_binance_data()
@@ -98,7 +92,6 @@ if __name__ == "__main__":
 
     candidati = []
     scartati_top10 = []
-
     top10_symbols = ['BTCUSDT','ETHUSDT','BNBUSDT','SOLUSDT','XRPUSDT',
                      'DOGEUSDT','TONUSDT','ADAUSDT','TRXUSDT','SHIBUSDT']
 
@@ -106,29 +99,21 @@ if __name__ == "__main__":
         log(f"Progresso: {i+1}/{len(coins)} coin")
         score, motivi = valuta_coin(coin, fg)
 
-        if score >= 70: # Soglia per essere "valido"
+        if score >= 60: # Soglia abbassata da 70 a 60
             candidati.append({"coin": coin, "score": score, "motivi": motivi})
+            log(f" CANDIDATO: {coin['symbol']} | Score: {score} | {motivi}")
         else:
             if coin['symbol'] in top10_symbols:
-                scartati_top10.append({"coin": coin['symbol'], "motivo": f"Score basso: {score}"})
+                scartati_top10.append({"coin": coin['symbol'], "motivo": f"Score: {score}"})
 
     log(f"Trovati {len(candidati)} candidati validi")
 
-    # ========== STAMPA RISULTATI ==========
     print("\n💼 Posizioni Aperte")
-    if posizioni_aperte:
-        for p in posizioni_aperte:
-            print(f"{p}")
-    else:
-        print("Nessuna")
+    print("Nessuna" if not posizioni_aperte else posizioni_aperte)
 
     print("\n🚫 Top 10 Scartati")
     for s in scartati_top10[:10]:
         print(f"{s['coin']}\t{s['motivo']}")
 
-    print("\n📈 Ultime Operazioni")
-    print("Comprati: Nessuno")
-    print("Venduti: Nessuno")
-
-    print(f"\n📝 Log Attività")
+    print("\n📈 Ultime Operazioni\nComprati: Nessuno\nVenduti: Nessuno")
     log(f"Ultimo agg: {datetime.now()}")
