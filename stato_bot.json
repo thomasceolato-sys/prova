@@ -42,20 +42,36 @@
       "symbol": "DRV/USDT",
       "prezzo": 0.1547,
       "quando": "2026-07-14T23:37:34.488634"
+    },
+    {
+      "tipo": "VENDITA",
+      "symbol": "DRV/USDT",
+      "prezzo": 0.13013,
+      "quando": "2026-07-17T08:46:47.074537",
+      "motivo": "STOP-LOSS (-15.88%)"
+    },
+    {
+      "tipo": "ACQUISTO",
+      "symbol": "AKE/USDT",
+      "prezzo": 0.0011265,
+      "quando": "2026-07-17T08:46:51.756621"
     }
   ],
   "market_breadth": {
-    "rialziste": 17,
+    "rialziste": 5,
     "analizzate": 20,
-    "quando": "2026-07-14T23:37:34.488583"
+    "quando": "2026-07-17T08:46:51.674212"
   },
   "positions": [
     {
-      "symbol": "DRV/USDT",
-      "amount": 43.501606455723206,
-      "prezzo_acquisto": 0.1547,
-      "quando": "2026-07-14T23:37:34.488634"
+      "symbol": "AKE/USDT",
+      "amount": 5015.1335826463755,
+      "prezzo_acquisto": 0.0011265,
+      "quando": "2026-07-17T08:46:51.756582"
     }
   ],
-  "fear_greed": null
+  "fear_greed": {
+    "valore": 27,
+    "classificazione": "Fear"
+  }
 }
