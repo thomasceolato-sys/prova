@@ -55,23 +55,36 @@
       "symbol": "AKE/USDT",
       "prezzo": 0.0011265,
       "quando": "2026-07-17T08:46:51.756621"
+    },
+    {
+      "tipo": "VENDITA",
+      "symbol": "AKE/USDT",
+      "prezzo": 0.0016404,
+      "quando": "2026-07-20T08:26:11.760899",
+      "motivo": "trend invertito"
+    },
+    {
+      "tipo": "ACQUISTO",
+      "symbol": "BANK/USDT",
+      "prezzo": 0.22726,
+      "quando": "2026-07-20T08:26:16.360348"
     }
   ],
   "market_breadth": {
-    "rialziste": 5,
+    "rialziste": 14,
     "analizzate": 20,
-    "quando": "2026-07-17T08:46:51.674212"
+    "quando": "2026-07-20T08:26:16.119437"
   },
   "positions": [
     {
-      "symbol": "AKE/USDT",
-      "amount": 5015.1335826463755,
-      "prezzo_acquisto": 0.0011265,
-      "quando": "2026-07-17T08:46:51.756582"
+      "symbol": "BANK/USDT",
+      "amount": 36.1276938552332,
+      "prezzo_acquisto": 0.22726,
+      "quando": "2026-07-20T08:26:16.360289"
     }
   ],
   "fear_greed": {
-    "valore": 27,
+    "valore": 29,
     "classificazione": "Fear"
   }
 }
