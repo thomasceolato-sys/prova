@@ -81,19 +81,32 @@
       "symbol": "BANK/USDT",
       "prezzo": 0.1432,
       "quando": "2026-07-21T09:44:23.542311"
+    },
+    {
+      "tipo": "VENDITA",
+      "symbol": "BANK/USDT",
+      "prezzo": 0.16237,
+      "quando": "2026-07-21T15:55:38.186364",
+      "motivo": "trend invertito"
+    },
+    {
+      "tipo": "ACQUISTO",
+      "symbol": "ETH5L/USDT",
+      "prezzo": 0.013349,
+      "quando": "2026-07-21T15:55:42.377460"
     }
   ],
   "market_breadth": {
-    "rialziste": 16,
+    "rialziste": 15,
     "analizzate": 20,
-    "quando": "2026-07-21T09:44:23.284981"
+    "quando": "2026-07-21T15:55:42.135307"
   },
   "positions": [
     {
-      "symbol": "BANK/USDT",
-      "amount": 36.05547459521659,
-      "prezzo_acquisto": 0.1432,
-      "quando": "2026-07-21T09:44:23.542274"
+      "symbol": "ETH5L/USDT",
+      "amount": 437.682568696732,
+      "prezzo_acquisto": 0.013349,
+      "quando": "2026-07-21T15:55:42.377421"
     }
   ],
   "fear_greed": {
