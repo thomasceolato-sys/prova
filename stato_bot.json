@@ -68,23 +68,36 @@
       "symbol": "BANK/USDT",
       "prezzo": 0.22726,
       "quando": "2026-07-20T08:26:16.360348"
+    },
+    {
+      "tipo": "VENDITA",
+      "symbol": "BANK/USDT",
+      "prezzo": 0.1432,
+      "quando": "2026-07-21T09:44:20.475325",
+      "motivo": "STOP-LOSS (-36.99%)"
+    },
+    {
+      "tipo": "ACQUISTO",
+      "symbol": "BANK/USDT",
+      "prezzo": 0.1432,
+      "quando": "2026-07-21T09:44:23.542311"
     }
   ],
   "market_breadth": {
-    "rialziste": 14,
+    "rialziste": 16,
     "analizzate": 20,
-    "quando": "2026-07-20T08:26:16.119437"
+    "quando": "2026-07-21T09:44:23.284981"
   },
   "positions": [
     {
       "symbol": "BANK/USDT",
-      "amount": 36.1276938552332,
-      "prezzo_acquisto": 0.22726,
-      "quando": "2026-07-20T08:26:16.360289"
+      "amount": 36.05547459521659,
+      "prezzo_acquisto": 0.1432,
+      "quando": "2026-07-21T09:44:23.542274"
     }
   ],
   "fear_greed": {
-    "valore": 29,
-    "classificazione": "Fear"
+    "valore": 25,
+    "classificazione": "Extreme Fear"
   }
 }
