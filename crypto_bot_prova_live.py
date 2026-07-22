@@ -125,11 +125,13 @@ def load_state():
         state.setdefault('trades', [])
         state.setdefault('market_breadth', None)
         state.setdefault('fear_greed', None)
+        state.setdefault('ultima_scansione', None)
         return state
 
     return {
         'balance': INITIAL_BALANCE, 'positions': [],
-        'trades': [], 'market_breadth': None, 'fear_greed': None
+        'trades': [], 'market_breadth': None, 'fear_greed': None,
+        'ultima_scansione': None
     }
 
 
@@ -138,15 +140,51 @@ def save_state(state):
         json.dump(state, f, indent=2)
 
 
+import re
+
+LEVERAGED_TOKEN_PATTERN = re.compile(r'^[A-Z0-9]+\d[LS]$')
+
+
+def is_leveraged_token(symbol):
+    """
+    Riconosce i token a leva stile Gate.io ETF (es. ETH3L, BTC5S, SHIB5L):
+    si ribilanciano ogni giorno per mantenere la leva fissa, il che li fa
+    perdere valore anche a sottostante fermo e amplifica le oscillazioni -
+    non adatti alla nostra logica su medie mobili, che assume un prezzo
+    'normale' senza questo tipo di decadimento.
+    """
+    base = symbol.split('/')[0]
+    return bool(LEVERAGED_TOKEN_PATTERN.match(base))
+
+
 def get_top_symbols(exchange, n, quote_currency):
-    """Restituisce le n coppie spot con più volume scambiato nelle ultime 24h."""
+    """Restituisce le n coppie spot (esclusi i token a leva) con più volume nelle ultime 24h."""
     tickers = exchange.fetch_tickers()
     candidates = []
     for symbol, ticker in tickers.items():
-        if symbol.endswith(f'/{quote_currency}') and ticker.get('quoteVolume'):
+        if (symbol.endswith(f'/{quote_currency}') and ticker.get('quoteVolume')
+                and not is_leveraged_token(symbol)):
             candidates.append((symbol, ticker['quoteVolume']))
     candidates.sort(key=lambda x: x[1], reverse=True)
     return [symbol for symbol, _ in candidates[:n]]
+
+
+def compute_breakeven_price(closes, short_window, long_window):
+    """
+    Calcola a quale prezzo dovrebbe chiudere la PROSSIMA candela perché la
+    media corta e quella lunga si incrocino esattamente (approssimazione:
+    assume che sia solo quella prossima candela a cambiare). Utile per
+    mostrare 'quanto manca' perché una coppia diventi/smetta di essere
+    un'occasione di acquisto secondo la nostra logica.
+    """
+    if len(closes) < long_window:
+        return None
+    A = closes[-(short_window - 1):].sum()
+    B = closes[-(long_window - 1):].sum()
+    denom = (long_window - short_window)
+    if denom == 0:
+        return None
+    return float((short_window * B - long_window * A) / denom)
 
 
 def analyze_symbol(exchange, symbol, timeframe, short_window, long_window):
@@ -165,8 +203,14 @@ def analyze_symbol(exchange, symbol, timeframe, short_window, long_window):
 
     trend = 1 if sma_short > sma_long else (-1 if sma_short < sma_long else 0)
     momentum = (sma_short - sma_long) / sma_long
+    breakeven = compute_breakeven_price(df['close'].values, short_window, long_window)
 
-    return {'symbol': symbol, 'trend': trend, 'momentum': momentum, 'price': last_price}
+    # Cast esplicito a tipi nativi Python: i valori pandas/numpy non sono
+    # serializzabili in JSON così come sono (json.dump andrebbe in errore).
+    return {
+        'symbol': symbol, 'trend': int(trend), 'momentum': float(momentum),
+        'price': float(last_price), 'breakeven': breakeven
+    }
 
 
 def get_fear_greed_index():
@@ -226,6 +270,12 @@ def check_once(exchange, state):
                 )
                 state['balance'] = state['balance'] + proceeds
             else:
+                p['ultimo_prezzo'] = current['price']
+                p['ultimo_trend'] = current['trend']
+                p['ultimo_momentum'] = current['momentum']
+                p['prezzo_breakeven_vendita'] = current['breakeven']
+                p['perdita_attuale_pct'] = round(loss_pct * 100, 2) if loss_pct is not None else None
+                p['ultima_verifica'] = pd.Timestamp.now().isoformat()
                 print(f"Continuo a tenere {p['symbol']}, trend ancora rialzista o neutro.")
                 still_open.append(p)
 
@@ -248,6 +298,15 @@ def check_once(exchange, state):
         state['market_breadth'] = {
             'rialziste': len([a for a in analyses if a['trend'] == 1]),
             'analizzate': len(analyses),
+            'quando': pd.Timestamp.now().isoformat()
+        }
+        state['ultima_scansione'] = {
+            'coins': sorted(
+                [{'symbol': a['symbol'], 'trend': a['trend'], 'momentum': a['momentum'],
+                  'prezzo': a['price'], 'breakeven': a['breakeven']}
+                 for a in analyses],
+                key=lambda c: -c['momentum']
+            ),
             'quando': pd.Timestamp.now().isoformat()
         }
 
