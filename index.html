@@ -195,6 +195,103 @@
     font-weight: 600;
   }
 
+  .scan-summary {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+  .scan-box {
+    flex: 1;
+    background: var(--panel);
+    border: 1px solid var(--panel-line);
+    border-radius: 10px;
+    padding: 16px 18px;
+  }
+  .scan-number {
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin: 2px 0 0;
+  }
+  .scan-number.accent { color: var(--accent); }
+  .scan-caption {
+    color: var(--muted);
+    font-size: 11.5px;
+    margin-top: 4px;
+    line-height: 1.4;
+  }
+
+  .position-detail {
+    background: var(--panel);
+    border: 1px solid var(--panel-line);
+    border-radius: 10px;
+    padding: 4px 20px;
+    margin-bottom: 20px;
+  }
+  .position-row {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--panel-line);
+  }
+  .position-row:last-child { border-bottom: none; }
+  .position-top {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+  .position-symbol { font-weight: 700; font-size: 15px; }
+  .position-pnl { margin-left: auto; font-weight: 700; font-size: 14px; }
+  .position-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 16px;
+    font-size: 12.5px;
+    color: var(--muted);
+  }
+  .position-grid b { color: var(--ink); font-weight: 600; }
+  .position-stoploss-track {
+    width: 100%;
+    height: 5px;
+    background: #262b38;
+    border-radius: 3px;
+    margin-top: 8px;
+    overflow: hidden;
+  }
+  .position-stoploss-fill {
+    height: 100%;
+    border-radius: 3px;
+  }
+
+  .coin-list { max-height: 460px; overflow-y: auto; }
+  .coin-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--panel-line);
+    font-size: 13px;
+  }
+  .coin-row:last-child { border-bottom: none; }
+  .coin-symbol { font-weight: 600; width: 108px; flex-shrink: 0; }
+  .coin-badge {
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    padding: 2.5px 6px;
+    border-radius: 4px;
+    flex-shrink: 0;
+    background: rgba(95,191,143,0.15);
+    color: var(--buy);
+  }
+  .coin-badge.none { background: transparent; color: var(--muted); font-weight: 500; }
+  .coin-detail {
+    margin-left: auto;
+    text-align: right;
+    color: var(--muted);
+    font-size: 12px;
+  }
+  .coin-detail b { color: var(--ink); }
+
   .log-item {
     display: flex;
     align-items: baseline;
@@ -250,6 +347,19 @@
   <p class="eyebrow">Prova live &middot; simulazione, nessun fondo reale</p>
   <h1>Crypto bot &mdash; <span id="repo-name">registro operazioni</span></h1>
 
+  <div class="scan-summary">
+    <div class="scan-box">
+      <p class="stat-label">Coppie controllate</p>
+      <p class="scan-number mono" id="scan-total">&mdash;</p>
+      <p class="scan-caption">Le più scambiate su Gate.io in questo momento, ricalcolate ad ogni ciclo</p>
+    </div>
+    <div class="scan-box">
+      <p class="stat-label">Coppie monitorate</p>
+      <p class="scan-number mono accent" id="scan-bullish">&mdash;</p>
+      <p class="scan-caption">In trend rialzista ora: sono le candidate a un possibile acquisto</p>
+    </div>
+  </div>
+
   <div class="status-panel">
     <p class="status-state" id="status-state">Caricamento&hellip;</p>
     <p class="status-sub" id="status-sub"></p>
@@ -262,24 +372,20 @@
         <p class="stat-value mono" id="stat-trades">&mdash;</p>
       </div>
       <div>
-        <p class="stat-label">Coppie monitorate</p>
-        <p class="stat-value mono" id="stat-coins">&mdash;</p>
-      </div>
-      <div>
         <p class="stat-label">Fear &amp; Greed Index</p>
         <p class="stat-value mono" id="stat-fng">&mdash;</p>
       </div>
     </div>
   </div>
 
+  <div class="position-detail" id="position-detail" style="display:none;">
+    <p class="section-label" style="padding-top:16px;">Posizioni aperte &mdash; cosa serve per vendere</p>
+    <div id="position-list"></div>
+  </div>
+
   <div class="breadth-panel">
-    <div class="breadth-row">
-      <p class="section-label" style="margin:0;">Ampiezza di mercato ora</p>
-      <p class="breadth-count mono" id="breadth-count">&mdash;</p>
-    </div>
-    <div class="breadth-bar-track">
-      <div class="breadth-bar-fill" id="breadth-bar" style="width:0%;"></div>
-    </div>
+    <p class="section-label" style="margin-bottom: 10px;">Coppie controllate in dettaglio</p>
+    <div class="coin-list" id="coin-list"></div>
     <p class="breadth-caption" id="breadth-caption">In attesa del primo dato</p>
   </div>
 
@@ -289,7 +395,7 @@
     <svg id="chart-svg" width="100%" height="140" viewBox="0 0 680 140" preserveAspectRatio="none"></svg>
   </div>
 
-  <p class="section-label">Operazioni e guadagno per ciclo</p>
+  <p class="section-label">Storico cicli chiusi (guadagno/perdita)</p>
   <div id="cycle-list"></div>
   <div class="empty-state" id="log-empty" style="display:none;">
     Nessuna operazione ancora. Il bot controlla il mercato periodicamente e compra solo quando trova un trend rialzista abbastanza marcato &mdash; può volerci qualche ciclo prima del primo movimento.
@@ -305,14 +411,38 @@
 <script>
 const STATE_URL = 'stato_bot.json';
 const QUOTE = 'USDT';
+const STOP_LOSS_PCT = 0.05; // deve corrispondere a STOP_LOSS_PCT nel file .py
 
 function fmt(n, decimals) {
   return Number(n).toLocaleString('it-IT', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
 }
 
+function fmtPrice(n) {
+  // Decimali dinamici: i prezzi crypto vanno da decine di migliaia (BTC) a
+  // frazioni di milionesimo (coin tipo PEPE) - 4 decimali fissi azzererebbero
+  // questi ultimi mostrando "0,0000".
+  const num = Number(n);
+  if (num === 0) return '0';
+  const abs = Math.abs(num);
+  const decimals = abs >= 0.01 ? 4 : Math.min(12, Math.ceil(-Math.log10(abs)) + 3);
+  return fmt(num, decimals);
+}
+
 function timeAgo(iso) {
   const d = new Date(iso);
   return d.toLocaleString('it-IT', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
+}
+
+function sensibleBreakeven(breakeven, currentPrice) {
+  // Con un trend molto marcato la formula del breakeven può restituire un
+  // valore negativo o comunque lontanissimo dal prezzo attuale: matematicamente
+  // corretto, ma inutile/fuorviante da mostrare come "obiettivo". In quel caso
+  // meglio dire che l'inversione non è vicina, piuttosto che un numero assurdo.
+  if (breakeven == null || currentPrice == null || currentPrice <= 0) return null;
+  if (breakeven <= 0) return null;
+  const ratio = breakeven / currentPrice;
+  if (ratio > 3 || ratio < 1 / 3) return null;
+  return breakeven;
 }
 
 function render(state) {
@@ -377,21 +507,88 @@ function render(state) {
   }
 
   const breadth = state.market_breadth;
-  const bCount = document.getElementById('breadth-count');
-  const bBar = document.getElementById('breadth-bar');
   const bCaption = document.getElementById('breadth-caption');
-  const bCoins = document.getElementById('stat-coins');
+  const scanTotalEl = document.getElementById('scan-total');
+  const scanBullishEl = document.getElementById('scan-bullish');
+
   if (breadth && breadth.analizzate > 0) {
-    const pct = (breadth.rialziste / breadth.analizzate) * 100;
-    bCount.textContent = `${breadth.rialziste} / ${breadth.analizzate} rialziste`;
-    bBar.style.width = `${pct}%`;
-    bCaption.textContent = `Ultima scansione completa: ${timeAgo(breadth.quando)} — solo le coppie in trend rialzista sono candidate all'acquisto`;
-    bCoins.textContent = breadth.analizzate;
+    scanTotalEl.textContent = breadth.analizzate;
+    scanBullishEl.textContent = breadth.rialziste;
   } else {
-    bCount.textContent = '—';
-    bBar.style.width = '0%';
-    bCaption.textContent = 'Si aggiorna ad ogni ciclo in cui il bot è liquido e cerca una nuova occasione';
-    bCoins.textContent = '—';
+    scanTotalEl.textContent = '—';
+    scanBullishEl.textContent = '—';
+  }
+
+  // Lista dettagliata di tutte le coppie controllate nell'ultima scansione
+  const scan = state.ultima_scansione;
+  const coinList = document.getElementById('coin-list');
+  coinList.innerHTML = '';
+  if (scan && scan.coins && scan.coins.length > 0) {
+    bCaption.textContent = `Ultima scansione completa: ${timeAgo(scan.quando)} — aggiornata ad ogni ciclo in cui il bot cerca una nuova occasione (non mentre tutti gli slot sono occupati)`;
+    scan.coins.forEach(c => {
+      const row = document.createElement('div');
+      row.className = 'coin-row';
+      const monitored = c.trend === 1;
+      const target = sensibleBreakeven(c.breakeven, c.prezzo);
+      const detail = monitored
+        ? `<b>${fmtPrice(c.prezzo)}</b> ${QUOTE}`
+        : (target != null
+            ? `${fmtPrice(c.prezzo)} &rarr; serve <b>${fmtPrice(target)}</b> ${QUOTE}`
+            : `${fmtPrice(c.prezzo)} ${QUOTE} <span style="opacity:.6;">(inversione non vicina)</span>`);
+      row.innerHTML = `
+        <span class="coin-symbol">${c.symbol}</span>
+        <span class="coin-badge ${monitored ? '' : 'none'}">${monitored ? 'MONITORATA' : '&mdash;'}</span>
+        <span class="coin-detail mono">${detail}</span>
+      `;
+      coinList.appendChild(row);
+    });
+  } else {
+    bCaption.textContent = 'In attesa del primo dato — si popola al primo ciclo in cui il bot cerca una nuova occasione';
+  }
+
+  // Dettaglio posizioni aperte: cosa serve perché vengano vendute
+  const posDetail = document.getElementById('position-detail');
+  const posList = document.getElementById('position-list');
+  if (positions.length > 0) {
+    posDetail.style.display = 'block';
+    posList.innerHTML = '';
+    positions.forEach(p => {
+      const hasPrice = p.ultimo_prezzo != null;
+      const pnl = p.perdita_attuale_pct;
+      const stopPrice = p.prezzo_acquisto ? p.prezzo_acquisto * (1 - STOP_LOSS_PCT) : null;
+      let barPct = 0;
+      if (pnl != null) {
+        // 0% = appena comprato, 100% = sullo stop-loss. Sotto zero (guadagno) resta a 0.
+        barPct = Math.max(0, Math.min(100, (pnl / (-STOP_LOSS_PCT * 100)) * 100));
+      }
+      const row = document.createElement('div');
+      row.className = 'position-row';
+      row.innerHTML = `
+        <div class="position-top">
+          <span class="position-symbol">${p.symbol}</span>
+          <span class="position-pnl ${pnl == null ? '' : (pnl >= 0 ? 'cycle-gain up' : 'cycle-gain down')}">
+            ${hasPrice ? (pnl >= 0 ? '+' : '') + fmt(pnl, 2) + '%' : 'in attesa di dati'}
+          </span>
+        </div>
+        <div class="position-grid mono">
+          <div>Comprato a <b>${fmtPrice(p.prezzo_acquisto)}</b> ${QUOTE}</div>
+          <div>Prezzo attuale: <b>${hasPrice ? fmtPrice(p.ultimo_prezzo) + ' ' + QUOTE : '—'}</b></div>
+          <div>Vende se scende a <b>${stopPrice ? fmtPrice(stopPrice) + ' ' + QUOTE : '—'}</b> (stop-loss)</div>
+          <div>...oppure se il trend si inverte: ${(() => {
+            const target = sensibleBreakeven(p.prezzo_breakeven_vendita, p.ultimo_prezzo);
+            return target != null
+              ? `sotto <b>${fmt(target, 4)}</b> ${QUOTE}`
+              : (hasPrice ? 'inversione non vicina' : 'in attesa di dati');
+          })()}</div>
+        </div>
+        <div class="position-stoploss-track">
+          <div class="position-stoploss-fill" style="width:${barPct}%; background:${barPct > 70 ? 'var(--sell)' : 'var(--accent)'};"></div>
+        </div>
+      `;
+      posList.appendChild(row);
+    });
+  } else {
+    posDetail.style.display = 'none';
   }
 
   // Raggruppa acquisto+vendita in cicli, con il guadagno reale di ciascuno
@@ -399,52 +596,39 @@ function render(state) {
   const logEmpty = document.getElementById('log-empty');
   cycleList.innerHTML = '';
 
-  if (trades.length === 0) {
+  const cycles = [];
+  const openBuys = {};  // per simbolo: l'acquisto ancora senza vendita corrispondente (mostrato altrove)
+  trades.forEach(t => {
+    if (t.tipo === 'ACQUISTO') {
+      openBuys[t.symbol] = t;
+    } else if (t.tipo === 'VENDITA') {
+      const buy = openBuys[t.symbol] || null;
+      const gainPct = buy ? ((t.prezzo - buy.prezzo) / buy.prezzo) * 100 : null;
+      cycles.push({ sell: t, buy, gainPct });
+      delete openBuys[t.symbol];
+    }
+  });
+
+  if (cycles.length === 0) {
     logEmpty.style.display = 'block';
   } else {
     logEmpty.style.display = 'none';
-    const cycles = [];
-    const openBuys = {};  // per simbolo: l'acquisto ancora senza vendita corrispondente
-    trades.forEach(t => {
-      if (t.tipo === 'ACQUISTO') {
-        openBuys[t.symbol] = t;
-      } else if (t.tipo === 'VENDITA') {
-        const buy = openBuys[t.symbol] || null;
-        const gainPct = buy ? ((t.prezzo - buy.prezzo) / buy.prezzo) * 100 : null;
-        cycles.push({ sell: t, buy, gainPct });
-        delete openBuys[t.symbol];
-      }
-    });
-
     const rows = [...cycles].reverse();
-    Object.values(openBuys).reverse().forEach(buy => {
-      rows.unshift({ sell: null, buy, gainPct: null, open: true });
-    });
 
     rows.forEach(c => {
       const row = document.createElement('div');
       row.className = 'cycle-item';
-      if (c.open) {
-        row.innerHTML = `
-          <div class="cycle-top">
-            <span class="cycle-symbol">${c.buy.symbol}</span>
-            <span class="cycle-open">POSIZIONE APERTA</span>
-          </div>
-          <div class="cycle-detail mono">Comprato a ${fmt(c.buy.prezzo, 4)} ${QUOTE} &middot; ${timeAgo(c.buy.quando)}</div>
-        `;
-      } else {
-        const up = c.gainPct >= 0;
-        row.innerHTML = `
-          <div class="cycle-top">
-            <span class="cycle-symbol">${c.sell.symbol}</span>
-            <span class="cycle-gain ${up ? 'up' : 'down'}">${up ? '+' : ''}${fmt(c.gainPct, 2)}%</span>
-          </div>
-          <div class="cycle-detail mono">
-            ${fmt(c.buy.prezzo, 4)} ${QUOTE} <span class="arrow">&rarr;</span> ${fmt(c.sell.prezzo, 4)} ${QUOTE}
-            &middot; ${timeAgo(c.buy.quando)} &rarr; ${timeAgo(c.sell.quando)}
-          </div>
-        `;
-      }
+      const up = c.gainPct >= 0;
+      row.innerHTML = `
+        <div class="cycle-top">
+          <span class="cycle-symbol">${c.sell.symbol}</span>
+          <span class="cycle-gain ${up ? 'up' : 'down'}">${up ? '+' : ''}${fmt(c.gainPct, 2)}%</span>
+        </div>
+        <div class="cycle-detail mono">
+          ${fmtPrice(c.buy.prezzo)} ${QUOTE} <span class="arrow">&rarr;</span> ${fmtPrice(c.sell.prezzo)} ${QUOTE}
+          &middot; ${timeAgo(c.buy.quando)} &rarr; ${timeAgo(c.sell.quando)}
+        </div>
+      `;
       cycleList.appendChild(row);
     });
   }
