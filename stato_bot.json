@@ -106,11 +106,18 @@
       "symbol": "ETH5L/USDT",
       "amount": 437.682568696732,
       "prezzo_acquisto": 0.013349,
-      "quando": "2026-07-21T15:55:42.377421"
+      "quando": "2026-07-21T15:55:42.377421",
+      "ultimo_prezzo": 0.013315,
+      "ultimo_trend": 1,
+      "ultimo_momentum": 0.021908073407038743,
+      "prezzo_breakeven_vendita": 0.005370333333333299,
+      "perdita_attuale_pct": -0.25,
+      "ultima_verifica": "2026-07-22T10:59:06.548446"
     }
   ],
   "fear_greed": {
     "valore": 25,
     "classificazione": "Extreme Fear"
-  }
+  },
+  "ultima_scansione": null
 }
