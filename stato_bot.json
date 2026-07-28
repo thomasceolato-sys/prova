@@ -145,7 +145,13 @@
       "symbol": "USDC/USDT",
       "amount": 5.84256087348338,
       "prezzo_acquisto": 1.0008,
-      "quando": "2026-07-28T16:10:12.936680"
+      "quando": "2026-07-28T16:10:12.936680",
+      "ultimo_prezzo": 1.001,
+      "ultimo_trend": 1,
+      "ultimo_momentum": 2.997362321132648e-05,
+      "prezzo_breakeven_vendita": 0.9997999999999858,
+      "perdita_attuale_pct": 0.02,
+      "ultima_verifica": "2026-07-28T20:45:53.971606"
     }
   ],
   "fear_greed": {
