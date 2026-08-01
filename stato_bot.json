@@ -171,7 +171,13 @@
       "symbol": "RATS/USDT",
       "amount": 106219.06791600265,
       "prezzo_acquisto": 5.129e-05,
-      "quando": "2026-08-01T08:42:52.260955"
+      "quando": "2026-08-01T08:42:52.260955",
+      "ultimo_prezzo": 4.88e-05,
+      "ultimo_trend": 1,
+      "ultimo_momentum": 0.36330690077873457,
+      "prezzo_breakeven_vendita": -0.0004031966666666667,
+      "perdita_attuale_pct": -4.85,
+      "ultima_verifica": "2026-08-01T12:14:30.811954"
     }
   ],
   "fear_greed": {
