@@ -236,7 +236,13 @@
       "symbol": "TUT/USDT",
       "amount": 73.09913794079897,
       "prezzo_acquisto": 0.114871,
-      "quando": "2026-08-10T14:34:19.022579"
+      "quando": "2026-08-10T14:34:19.022579",
+      "ultimo_prezzo": 0.119118,
+      "ultimo_trend": 1,
+      "ultimo_momentum": 0.13582743442799133,
+      "prezzo_breakeven_vendita": -0.4048466666666656,
+      "perdita_attuale_pct": 3.7,
+      "ultima_verifica": "2026-08-10T15:38:25.875766"
     }
   ],
   "fear_greed": {
