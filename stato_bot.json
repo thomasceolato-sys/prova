@@ -263,12 +263,12 @@
       "amount": 6.789097932554737,
       "prezzo_acquisto": 1.3021,
       "quando": "2026-08-11T02:27:31.559656",
-      "ultimo_prezzo": 1.3299,
+      "ultimo_prezzo": 1.317,
       "ultimo_trend": 1,
-      "ultimo_momentum": 0.13886945303873452,
-      "prezzo_breakeven_vendita": -3.6328333333333376,
-      "perdita_attuale_pct": 2.14,
-      "ultima_verifica": "2026-08-11T06:30:10.766753"
+      "ultimo_momentum": 0.13442658761680565,
+      "prezzo_breakeven_vendita": -3.36873333333333,
+      "perdita_attuale_pct": 1.14,
+      "ultima_verifica": "2026-08-11T07:48:15.458821"
     }
   ],
   "fear_greed": {
