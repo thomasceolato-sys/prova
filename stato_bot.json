@@ -366,7 +366,13 @@
       "symbol": "CYS/USDT",
       "amount": 5.571533863169967,
       "prezzo_acquisto": 1.2265,
-      "quando": "2026-08-13T14:44:16.730792"
+      "quando": "2026-08-13T14:44:16.730792",
+      "ultimo_prezzo": 1.1853,
+      "ultimo_trend": 1,
+      "ultimo_momentum": 0.04881335438907735,
+      "prezzo_breakeven_vendita": -0.5320666666666739,
+      "perdita_attuale_pct": -3.36,
+      "ultima_verifica": "2026-08-13T15:41:53.965522"
     }
   ],
   "fear_greed": {
