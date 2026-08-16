@@ -392,7 +392,13 @@
       "symbol": "VANRY/USDT",
       "amount": 1519.3828772596137,
       "prezzo_acquisto": 0.00656,
-      "quando": "2026-08-16T09:03:12.400971"
+      "quando": "2026-08-16T09:03:12.400971",
+      "ultimo_prezzo": 0.00662,
+      "ultimo_trend": 1,
+      "ultimo_momentum": 0.21226507454522292,
+      "prezzo_breakeven_vendita": -0.029902333333333284,
+      "perdita_attuale_pct": 0.91,
+      "ultima_verifica": "2026-08-16T09:42:10.888341"
     }
   ],
   "fear_greed": {
