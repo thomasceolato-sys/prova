@@ -444,7 +444,13 @@
       "symbol": "SKYAI/USDT",
       "amount": 135.67552104632352,
       "prezzo_acquisto": 0.07625,
-      "quando": "2026-08-17T08:00:27.976756"
+      "quando": "2026-08-17T08:00:27.976756",
+      "ultimo_prezzo": 0.07959,
+      "ultimo_trend": 1,
+      "ultimo_momentum": 0.05335334751814409,
+      "prezzo_breakeven_vendita": -0.05086666666666654,
+      "perdita_attuale_pct": 4.38,
+      "ultima_verifica": "2026-08-17T08:54:28.994924"
     }
   ],
   "fear_greed": {
