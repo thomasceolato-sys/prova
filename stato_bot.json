@@ -457,7 +457,13 @@
       "symbol": "WLD/USDT",
       "amount": 27.03573890134453,
       "prezzo_acquisto": 0.3601,
-      "quando": "2026-08-17T15:59:32.201008"
+      "quando": "2026-08-17T15:59:32.201008",
+      "ultimo_prezzo": 0.356,
+      "ultimo_trend": 1,
+      "ultimo_momentum": 0.015189359554806312,
+      "prezzo_breakeven_vendita": 0.17946666666666525,
+      "perdita_attuale_pct": -1.14,
+      "ultima_verifica": "2026-08-17T16:37:13.981275"
     }
   ],
   "fear_greed": {
