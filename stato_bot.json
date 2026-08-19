@@ -509,7 +509,13 @@
       "symbol": "PRCL/USDT",
       "amount": 842.7980780855042,
       "prezzo_acquisto": 0.00894,
-      "quando": "2026-08-19T15:01:55.650613"
+      "quando": "2026-08-19T15:01:55.650613",
+      "ultimo_prezzo": 0.008493,
+      "ultimo_trend": 1,
+      "ultimo_momentum": 0.3548807071919427,
+      "prezzo_breakeven_vendita": -0.07044600000000009,
+      "perdita_attuale_pct": -5.0,
+      "ultima_verifica": "2026-08-19T15:45:59.684210"
     }
   ],
   "fear_greed": {
