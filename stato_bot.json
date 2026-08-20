@@ -574,7 +574,13 @@
       "symbol": "ETH/USDT",
       "amount": 0.0023810067383848096,
       "prezzo_acquisto": 2256.45,
-      "quando": "2026-08-20T04:53:30.970336"
+      "quando": "2026-08-20T04:53:30.970336",
+      "ultimo_prezzo": 2255.0,
+      "ultimo_trend": 1,
+      "ultimo_momentum": 0.06758513144013877,
+      "prezzo_breakeven_vendita": -2568.2966666666866,
+      "perdita_attuale_pct": -0.06,
+      "ultima_verifica": "2026-08-20T05:29:05.120350"
     }
   ],
   "fear_greed": {
