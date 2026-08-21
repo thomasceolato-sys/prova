@@ -577,10 +577,10 @@
       "quando": "2026-08-20T04:53:30.970336",
       "ultimo_prezzo": 2399.84,
       "ultimo_trend": 1,
-      "ultimo_momentum": 0.03356514864510281,
-      "prezzo_breakeven_vendita": -10.65,
+      "ultimo_momentum": 0.031392465098009734,
+      "prezzo_breakeven_vendita": 69.85333333333644,
       "perdita_attuale_pct": 6.35,
-      "ultima_verifica": "2026-08-21T15:48:42.493235"
+      "ultima_verifica": "2026-08-21T16:32:19.975407"
     }
   ],
   "fear_greed": {
