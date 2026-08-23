@@ -587,7 +587,13 @@
       "symbol": "TRUMP/USDT",
       "amount": 2.492355551785303,
       "prezzo_acquisto": 2.3069,
-      "quando": "2026-08-23T02:38:16.810172"
+      "quando": "2026-08-23T02:38:16.810172",
+      "ultimo_prezzo": 2.2466,
+      "ultimo_trend": 1,
+      "ultimo_momentum": 0.12573251666004362,
+      "prezzo_breakeven_vendita": -5.736333333333353,
+      "perdita_attuale_pct": -2.61,
+      "ultima_verifica": "2026-08-23T03:35:48.215124"
     }
   ],
   "fear_greed": {
