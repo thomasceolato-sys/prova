@@ -600,7 +600,13 @@
       "symbol": "PENGU/USDT",
       "amount": 651.6529022403797,
       "prezzo_acquisto": 0.009333,
-      "quando": "2026-08-24T17:29:36.104635"
+      "quando": "2026-08-24T17:29:36.104635",
+      "ultimo_prezzo": 0.009474,
+      "ultimo_trend": 1,
+      "ultimo_momentum": 0.0541740577107413,
+      "prezzo_breakeven_vendita": -0.00570166666666676,
+      "perdita_attuale_pct": 1.51,
+      "ultima_verifica": "2026-08-24T18:00:48.914127"
     }
   ],
   "fear_greed": {
