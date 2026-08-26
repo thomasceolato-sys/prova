@@ -613,7 +613,13 @@
       "symbol": "HYPE/USDT",
       "amount": 0.07631750194884089,
       "prezzo_acquisto": 81.91,
-      "quando": "2026-08-26T03:03:28.769119"
+      "quando": "2026-08-26T03:03:28.769119",
+      "ultimo_prezzo": 81.7,
+      "ultimo_trend": 1,
+      "ultimo_momentum": 0.011207131720087016,
+      "prezzo_breakeven_vendita": 52.083333333333336,
+      "perdita_attuale_pct": -0.26,
+      "ultima_verifica": "2026-08-26T04:02:51.300801"
     }
   ],
   "fear_greed": {
