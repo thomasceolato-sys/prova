@@ -652,7 +652,13 @@
       "symbol": "SKR/USDT",
       "amount": 227.12622839219063,
       "prezzo_acquisto": 0.026312,
-      "quando": "2026-08-31T12:46:22.309227"
+      "quando": "2026-08-31T12:46:22.309227",
+      "ultimo_prezzo": 0.028818,
+      "ultimo_trend": 1,
+      "ultimo_momentum": 0.3694366740945947,
+      "prezzo_breakeven_vendita": -0.2196399999999998,
+      "perdita_attuale_pct": 9.52,
+      "ultima_verifica": "2026-08-31T19:23:50.547064"
     }
   ],
   "fear_greed": {
