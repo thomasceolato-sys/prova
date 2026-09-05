@@ -691,7 +691,13 @@
       "symbol": "MARSCOIN/USDT",
       "amount": 33.19748603219712,
       "prezzo_acquisto": 0.17707,
-      "quando": "2026-09-05T04:28:42.676150"
+      "quando": "2026-09-05T04:28:42.676150",
+      "ultimo_prezzo": 0.19129,
+      "ultimo_trend": 1,
+      "ultimo_momentum": 0.2573080699613642,
+      "prezzo_breakeven_vendita": -1.0408266666666663,
+      "perdita_attuale_pct": 8.03,
+      "ultima_verifica": "2026-09-05T08:31:48.456443"
     }
   ],
   "fear_greed": {
