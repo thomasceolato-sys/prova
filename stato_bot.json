@@ -704,7 +704,13 @@
       "symbol": "ARB/USDT",
       "amount": 32.525964969010765,
       "prezzo_acquisto": 0.1845,
-      "quando": "2026-09-06T18:31:47.535108"
+      "quando": "2026-09-06T18:31:47.535108",
+      "ultimo_prezzo": 0.18492,
+      "ultimo_trend": 1,
+      "ultimo_momentum": 0.18697892417046896,
+      "prezzo_breakeven_vendita": -0.7701033333333318,
+      "perdita_attuale_pct": 0.23,
+      "ultima_verifica": "2026-09-06T20:50:46.093827"
     }
   ],
   "fear_greed": {
