@@ -756,7 +756,13 @@
       "symbol": "SOPH/USDT",
       "amount": 759.0870487955659,
       "prezzo_acquisto": 0.006077,
-      "quando": "2026-09-08T17:57:03.850067"
+      "quando": "2026-09-08T17:57:03.850067",
+      "ultimo_prezzo": 0.005888,
+      "ultimo_trend": 1,
+      "ultimo_momentum": 0.3483571119757892,
+      "prezzo_breakeven_vendita": -0.06526133333333331,
+      "perdita_attuale_pct": -3.11,
+      "ultima_verifica": "2026-09-08T20:52:39.121927"
     }
   ],
   "fear_greed": {
