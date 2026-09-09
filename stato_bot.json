@@ -782,7 +782,13 @@
       "symbol": "VVV/USDT",
       "amount": 0.1498985894431523,
       "prezzo_acquisto": 26.8834,
-      "quando": "2026-09-09T06:23:20.357256"
+      "quando": "2026-09-09T06:23:20.357256",
+      "ultimo_prezzo": 26.9093,
+      "ultimo_trend": 1,
+      "ultimo_momentum": 0.19217917350512068,
+      "prezzo_breakeven_vendita": -107.89819999999987,
+      "perdita_attuale_pct": 0.1,
+      "ultima_verifica": "2026-09-09T11:42:56.990276"
     }
   ],
   "fear_greed": {
