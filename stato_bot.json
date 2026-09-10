@@ -847,7 +847,13 @@
       "symbol": "NEAR/USDT",
       "amount": 0.7119981693380965,
       "prezzo_acquisto": 2.508,
-      "quando": "2026-09-10T18:28:49.909925"
+      "quando": "2026-09-10T18:28:49.909925",
+      "ultimo_prezzo": 2.514,
+      "ultimo_trend": 1,
+      "ultimo_momentum": 0.003623630959651352,
+      "prezzo_breakeven_vendita": 2.31266666666664,
+      "perdita_attuale_pct": 0.24,
+      "ultima_verifica": "2026-09-10T21:07:36.373150"
     }
   ],
   "fear_greed": {
