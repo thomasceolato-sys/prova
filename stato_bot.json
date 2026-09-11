@@ -873,7 +873,13 @@
       "symbol": "STORJ/USDT",
       "amount": 28.78331628901314,
       "prezzo_acquisto": 0.06112,
-      "quando": "2026-09-11T21:19:35.535780"
+      "quando": "2026-09-11T21:19:35.535780",
+      "ultimo_prezzo": 0.06875,
+      "ultimo_trend": 1,
+      "ultimo_momentum": 0.2864584499630516,
+      "prezzo_breakeven_vendita": -0.30996999999999986,
+      "perdita_attuale_pct": 12.48,
+      "ultima_verifica": "2026-09-11T23:28:11.850171"
     }
   ],
   "fear_greed": {
