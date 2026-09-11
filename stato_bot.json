@@ -863,10 +863,10 @@
       "quando": "2026-09-10T23:11:14.477095",
       "ultimo_prezzo": 1.0003,
       "ultimo_trend": 1,
-      "ultimo_momentum": 5.998800239946909e-05,
-      "prezzo_breakeven_vendita": 0.9982666666666812,
+      "ultimo_momentum": 4.399005824676921e-05,
+      "prezzo_breakeven_vendita": 0.9989000000000109,
       "perdita_attuale_pct": 0.0,
-      "ultima_verifica": "2026-09-11T05:59:36.416845"
+      "ultima_verifica": "2026-09-11T11:07:12.115039"
     }
   ],
   "fear_greed": {
