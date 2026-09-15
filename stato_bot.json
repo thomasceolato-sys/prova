@@ -925,7 +925,13 @@
       "symbol": "FIL/USDT",
       "amount": 0.6688730036883664,
       "prezzo_acquisto": 0.943,
-      "quando": "2026-09-14T22:04:20.801305"
+      "quando": "2026-09-14T22:04:20.801305",
+      "ultimo_prezzo": 0.913,
+      "ultimo_trend": 1,
+      "ultimo_momentum": 0.051893514447712334,
+      "prezzo_breakeven_vendita": -0.5258,
+      "perdita_attuale_pct": -3.18,
+      "ultima_verifica": "2026-09-15T00:37:57.770752"
     }
   ],
   "fear_greed": {
