@@ -938,7 +938,13 @@
       "symbol": "PONS/USDT",
       "amount": 0.94969913562455,
       "prezzo_acquisto": 0.6222,
-      "quando": "2026-09-15T05:23:39.209250"
+      "quando": "2026-09-15T05:23:39.209250",
+      "ultimo_prezzo": 0.62328,
+      "ultimo_trend": 1,
+      "ultimo_momentum": 0.07810855730561565,
+      "prezzo_breakeven_vendita": -0.8830999999999979,
+      "perdita_attuale_pct": 0.17,
+      "ultima_verifica": "2026-09-15T10:17:06.509586"
     }
   ],
   "fear_greed": {
