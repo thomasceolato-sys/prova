@@ -964,7 +964,13 @@
       "symbol": "SYN/USDT",
       "amount": 2.2291939602215245,
       "prezzo_acquisto": 0.1807,
-      "quando": "2026-09-16T18:27:59.194154"
+      "quando": "2026-09-16T18:27:59.194154",
+      "ultimo_prezzo": 0.1837,
+      "ultimo_trend": 1,
+      "ultimo_momentum": 0.41635717759717333,
+      "prezzo_breakeven_vendita": -1.511469999999999,
+      "perdita_attuale_pct": 1.66,
+      "ultima_verifica": "2026-09-16T21:35:07.305367"
     }
   ],
   "fear_greed": {
