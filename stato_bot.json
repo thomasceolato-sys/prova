@@ -1016,7 +1016,13 @@
       "symbol": "AVAX/USDT",
       "amount": 0.021427973159993015,
       "prezzo_acquisto": 11.153,
-      "quando": "2026-09-21T06:47:02.715073"
+      "quando": "2026-09-21T06:47:02.715073",
+      "ultimo_prezzo": 11.222,
+      "ultimo_trend": 1,
+      "ultimo_momentum": 0.07445290472442752,
+      "prezzo_breakeven_vendita": -13.715666666666644,
+      "perdita_attuale_pct": 0.62,
+      "ultima_verifica": "2026-09-21T13:38:15.065450"
     }
   ],
   "fear_greed": {
