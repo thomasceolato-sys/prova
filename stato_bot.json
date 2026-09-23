@@ -1029,7 +1029,13 @@
       "symbol": "BCH/USDT",
       "amount": 0.0006843444466042162,
       "prezzo_acquisto": 341.99,
-      "quando": "2026-09-23T00:50:07.371495"
+      "quando": "2026-09-23T00:50:07.371495",
+      "ultimo_prezzo": 339.26,
+      "ultimo_trend": 1,
+      "ultimo_momentum": 0.13172753454910502,
+      "prezzo_breakeven_vendita": -993.5133333333322,
+      "perdita_attuale_pct": -0.8,
+      "ultima_verifica": "2026-09-23T05:30:27.208335"
     }
   ],
   "fear_greed": {
