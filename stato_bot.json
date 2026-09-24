@@ -1042,7 +1042,13 @@
       "symbol": "LTC/USDT",
       "amount": 0.003161827936028715,
       "prezzo_acquisto": 73.33,
-      "quando": "2026-09-24T15:24:32.892558"
+      "quando": "2026-09-24T15:24:32.892558",
+      "ultimo_prezzo": 70.9,
+      "ultimo_trend": 1,
+      "ultimo_momentum": 0.05745449492844228,
+      "prezzo_breakeven_vendita": -61.98000000000029,
+      "perdita_attuale_pct": -3.31,
+      "ultima_verifica": "2026-09-24T19:24:26.508900"
     }
   ],
   "fear_greed": {
