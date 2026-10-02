@@ -1094,7 +1094,13 @@
       "symbol": "\u9f99\u867e/USDT",
       "amount": 2.929761033745246,
       "prezzo_acquisto": 0.02613,
-      "quando": "2026-10-02T06:56:27.418414"
+      "quando": "2026-10-02T06:56:27.418414",
+      "ultimo_prezzo": 0.03776,
+      "ultimo_trend": 1,
+      "ultimo_momentum": 0.05667120664406896,
+      "prezzo_breakeven_vendita": 0.03220000000000027,
+      "perdita_attuale_pct": 44.51,
+      "ultima_verifica": "2026-10-02T13:38:31.796627"
     }
   ],
   "fear_greed": {
