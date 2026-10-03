@@ -1120,7 +1120,13 @@
       "symbol": "AAVE/USDT",
       "amount": 0.0006581773877919041,
       "prezzo_acquisto": 180.1,
-      "quando": "2026-10-03T01:27:57.207622"
+      "quando": "2026-10-03T01:27:57.207622",
+      "ultimo_prezzo": 179.83,
+      "ultimo_trend": 1,
+      "ultimo_momentum": 0.029958500278067554,
+      "prezzo_breakeven_vendita": 19.06333333333411,
+      "perdita_attuale_pct": -0.15,
+      "ultima_verifica": "2026-10-03T06:58:37.325344"
     }
   ],
   "fear_greed": {
