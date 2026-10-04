@@ -1133,7 +1133,13 @@
       "symbol": "SAND/USDT",
       "amount": 1.5958031005814886,
       "prezzo_acquisto": 0.0744,
-      "quando": "2026-10-03T22:21:34.989340"
+      "quando": "2026-10-03T22:21:34.989340",
+      "ultimo_prezzo": 0.07364,
+      "ultimo_trend": 1,
+      "ultimo_momentum": 0.11173033881759094,
+      "prezzo_breakeven_vendita": -0.1498266666666666,
+      "perdita_attuale_pct": -1.02,
+      "ultima_verifica": "2026-10-04T01:48:53.009170"
     }
   ],
   "fear_greed": {
