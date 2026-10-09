@@ -1185,7 +1185,13 @@
       "symbol": "STRK/USDT",
       "amount": 2.209933513201035,
       "prezzo_acquisto": 0.07042,
-      "quando": "2026-10-09T07:18:38.195939"
+      "quando": "2026-10-09T07:18:38.195939",
+      "ultimo_prezzo": 0.0718,
+      "ultimo_trend": 1,
+      "ultimo_momentum": 0.1421043870873775,
+      "prezzo_breakeven_vendita": -0.2127933333333331,
+      "perdita_attuale_pct": 1.96,
+      "ultima_verifica": "2026-10-09T14:30:12.143565"
     }
   ],
   "fear_greed": {
