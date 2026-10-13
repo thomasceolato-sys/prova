@@ -1224,7 +1224,13 @@
       "symbol": "BTW/USDT",
       "amount": 0.10862115325234682,
       "prezzo_acquisto": 1.7833,
-      "quando": "2026-10-13T08:07:25.933557"
+      "quando": "2026-10-13T08:07:25.933557",
+      "ultimo_prezzo": 1.9507,
+      "ultimo_trend": 1,
+      "ultimo_momentum": 0.04462121551042769,
+      "prezzo_breakeven_vendita": -0.7549666666666781,
+      "perdita_attuale_pct": 9.39,
+      "ultima_verifica": "2026-10-13T15:58:37.494636"
     }
   ],
   "fear_greed": {
