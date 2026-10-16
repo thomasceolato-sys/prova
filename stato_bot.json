@@ -1302,7 +1302,13 @@
       "symbol": "INJ/USDT",
       "amount": 0.016820686785596364,
       "prezzo_acquisto": 8.572,
-      "quando": "2026-10-16T18:22:49.626120"
+      "quando": "2026-10-16T18:22:49.626120",
+      "ultimo_prezzo": 8.585,
+      "ultimo_trend": 1,
+      "ultimo_momentum": 0.08987134253687429,
+      "prezzo_breakeven_vendita": -14.574000000000039,
+      "perdita_attuale_pct": 0.15,
+      "ultima_verifica": "2026-10-16T21:30:45.661218"
     }
   ],
   "fear_greed": {
