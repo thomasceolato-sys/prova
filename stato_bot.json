@@ -1315,7 +1315,13 @@
       "symbol": "TIA/USDT",
       "amount": 0.21687983085886253,
       "prezzo_acquisto": 0.6556,
-      "quando": "2026-10-17T15:25:17.461281"
+      "quando": "2026-10-17T15:25:17.461281",
+      "ultimo_prezzo": 0.6619,
+      "ultimo_trend": 1,
+      "ultimo_momentum": 0.04756845547568449,
+      "prezzo_breakeven_vendita": -0.3275666666666666,
+      "perdita_attuale_pct": 0.96,
+      "ultima_verifica": "2026-10-17T17:53:57.556153"
     }
   ],
   "fear_greed": {
