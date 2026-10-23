@@ -1367,7 +1367,13 @@
       "symbol": "LIT/USDT",
       "amount": 0.0424800376729979,
       "prezzo_acquisto": 3.434,
-      "quando": "2026-10-22T22:47:33.923352"
+      "quando": "2026-10-22T22:47:33.923352",
+      "ultimo_prezzo": 3.413,
+      "ultimo_trend": 1,
+      "ultimo_momentum": 0.0026766326342643055,
+      "prezzo_breakeven_vendita": 3.5163333333333715,
+      "perdita_attuale_pct": -0.61,
+      "ultima_verifica": "2026-10-23T01:13:13.907332"
     }
   ],
   "fear_greed": {
