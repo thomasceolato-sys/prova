@@ -1432,7 +1432,13 @@
       "symbol": "BIRB/USDT",
       "amount": 0.8711655701058907,
       "prezzo_acquisto": 0.09657,
-      "quando": "2026-10-24T17:36:27.250862"
+      "quando": "2026-10-24T17:36:27.250862",
+      "ultimo_prezzo": 0.0938,
+      "ultimo_trend": 1,
+      "ultimo_momentum": 0.44128895550157626,
+      "prezzo_breakeven_vendita": -1.1620099999999998,
+      "perdita_attuale_pct": -2.87,
+      "ultima_verifica": "2026-10-24T19:49:10.630682"
     }
   ],
   "fear_greed": {
