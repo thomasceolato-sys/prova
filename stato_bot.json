@@ -1471,7 +1471,13 @@
       "symbol": "ORDER/USDT",
       "amount": 1.3334133007621962,
       "prezzo_acquisto": 0.04806,
-      "quando": "2026-10-25T14:06:47.586396"
+      "quando": "2026-10-25T14:06:47.586396",
+      "ultimo_prezzo": 0.04838,
+      "ultimo_trend": 1,
+      "ultimo_momentum": 0.030391164253569487,
+      "prezzo_breakeven_vendita": 0.03177666666666663,
+      "perdita_attuale_pct": 0.67,
+      "ultima_verifica": "2026-10-25T17:38:55.169758"
     }
   ],
   "fear_greed": {
