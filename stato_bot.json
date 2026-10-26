@@ -1487,10 +1487,10 @@
       "quando": "2026-10-25T19:58:10.481221",
       "ultimo_prezzo": 0.004058,
       "ultimo_trend": 1,
-      "ultimo_momentum": 0.013336167310078362,
-      "prezzo_breakeven_vendita": 0.0024436666666666587,
+      "ultimo_momentum": 0.0038542051471495463,
+      "prezzo_breakeven_vendita": 0.0037943333333333366,
       "perdita_attuale_pct": -2.33,
-      "ultima_verifica": "2026-10-26T17:31:43.719636"
+      "ultima_verifica": "2026-10-26T21:53:04.341926"
     }
   ],
   "fear_greed": {
