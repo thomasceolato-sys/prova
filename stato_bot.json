@@ -1497,7 +1497,13 @@
       "symbol": "Q/USDT",
       "amount": 0.29394906105420526,
       "prezzo_acquisto": 0.209065,
-      "quando": "2026-10-27T01:09:44.139776"
+      "quando": "2026-10-27T01:09:44.139776",
+      "ultimo_prezzo": 0.203909,
+      "ultimo_trend": 1,
+      "ultimo_momentum": 0.46008665699099044,
+      "prezzo_breakeven_vendita": -1.3940419999999998,
+      "perdita_attuale_pct": -2.47,
+      "ultima_verifica": "2026-10-27T06:16:57.052985"
     }
   ],
   "fear_greed": {
