@@ -1536,7 +1536,13 @@
       "symbol": "EVAA/USDT",
       "amount": 0.010751741022224827,
       "prezzo_acquisto": 1.3519,
-      "quando": "2026-10-28T14:19:31.410188"
+      "quando": "2026-10-28T14:19:31.410188",
+      "ultimo_prezzo": 1.457,
+      "ultimo_trend": 1,
+      "ultimo_momentum": 0.42006355269066953,
+      "prezzo_breakeven_vendita": -11.207866666666666,
+      "perdita_attuale_pct": 7.77,
+      "ultima_verifica": "2026-10-28T19:44:52.073823"
     }
   ],
   "fear_greed": {
