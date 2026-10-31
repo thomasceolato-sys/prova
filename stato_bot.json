@@ -1601,7 +1601,13 @@
       "symbol": "AIN/USDT",
       "amount": 0.04108766841537088,
       "prezzo_acquisto": 0.2276,
-      "quando": "2026-10-31T15:03:36.623588"
+      "quando": "2026-10-31T15:03:36.623588",
+      "ultimo_prezzo": 0.23518,
+      "ultimo_trend": 1,
+      "ultimo_momentum": 0.249915137425938,
+      "prezzo_breakeven_vendita": -1.3776166666666663,
+      "perdita_attuale_pct": 3.33,
+      "ultima_verifica": "2026-10-31T19:16:56.730300"
     }
   ],
   "fear_greed": {
