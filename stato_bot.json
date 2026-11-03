@@ -1614,7 +1614,13 @@
       "symbol": "TRX/USDT",
       "amount": 0.03388740052297334,
       "prezzo_acquisto": 0.3226,
-      "quando": "2026-11-03T09:31:59.940449"
+      "quando": "2026-11-03T09:31:59.940449",
+      "ultimo_prezzo": 0.3231,
+      "ultimo_trend": 1,
+      "ultimo_momentum": 0.011523607039967621,
+      "prezzo_breakeven_vendita": 0.20153333333333306,
+      "perdita_attuale_pct": 0.15,
+      "ultima_verifica": "2026-11-03T17:20:27.309144"
     }
   ],
   "fear_greed": {
