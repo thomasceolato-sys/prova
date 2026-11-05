@@ -1615,174 +1615,181 @@
       "symbol": "ZEC/USDT",
       "prezzo": 1304.34,
       "quando": "2026-11-04T17:46:05.315035"
+    },
+    {
+      "tipo": "VENDITA",
+      "symbol": "ZEC/USDT",
+      "prezzo": 1228.9,
+      "quando": "2026-11-05T18:59:06.542913",
+      "motivo": "STOP-LOSS (-5.78%)"
+    },
+    {
+      "tipo": "ACQUISTO",
+      "symbol": "DGAI/USDT",
+      "prezzo": 0.74717,
+      "quando": "2026-11-05T18:59:13.963471"
     }
   ],
   "market_breadth": {
-    "rialziste": 18,
+    "rialziste": 13,
     "analizzate": 20,
-    "quando": "2026-11-04T17:46:05.128289"
+    "quando": "2026-11-05T18:59:13.886790"
   },
   "positions": [
     {
-      "symbol": "ZEC/USDT",
-      "amount": 8.304918175374313e-06,
-      "prezzo_acquisto": 1304.34,
-      "quando": "2026-11-04T17:46:05.314992",
-      "ultimo_prezzo": 1315.33,
-      "ultimo_trend": 1,
-      "ultimo_momentum": 0.03458748129917114,
-      "prezzo_breakeven_vendita": -34.653333333328675,
-      "perdita_attuale_pct": 0.84,
-      "ultima_verifica": "2026-11-05T11:31:26.445743"
+      "symbol": "DGAI/USDT",
+      "amount": 0.01363212163729808,
+      "prezzo_acquisto": 0.74717,
+      "quando": "2026-11-05T18:59:13.963448"
     }
   ],
   "fear_greed": {
-    "valore": 34,
-    "classificazione": "Fear"
+    "valore": 50,
+    "classificazione": "Neutral"
   },
   "ultima_scansione": {
     "coins": [
       {
-        "symbol": "ZEC/USDT",
-        "trend": 1,
-        "momentum": 0.04497137027316474,
-        "prezzo": 1304.34,
-        "breakeven": -584.6100000000016
-      },
-      {
         "symbol": "DGAI/USDT",
         "trend": 1,
-        "momentum": 0.032699971890761806,
-        "prezzo": 0.74427,
-        "breakeven": -0.07843333333333173
+        "momentum": 0.06163796958552057,
+        "prezzo": 0.74717,
+        "breakeven": -0.6590800000000097
       },
       {
-        "symbol": "PEPE/USDT",
+        "symbol": "AIN/USDT",
         "trend": 1,
-        "momentum": 0.024852788361621102,
-        "prezzo": 5.027e-06,
-        "breakeven": 1.0719999999999944e-06
+        "momentum": 0.019635507186601456,
+        "prezzo": 0.26879,
+        "breakeven": 0.10141666666666728
       },
       {
-        "symbol": "UNI/USDT",
+        "symbol": "ZEC/USDT",
         "trend": 1,
-        "momentum": 0.01870815608627431,
-        "prezzo": 7.66,
-        "breakeven": 2.7033333333333456
-      },
-      {
-        "symbol": "NEAR/USDT",
-        "trend": 1,
-        "momentum": 0.017067165901571934,
-        "prezzo": 4.112,
-        "breakeven": 1.550666666666666
-      },
-      {
-        "symbol": "SUI/USDT",
-        "trend": 1,
-        "momentum": 0.016616928615409317,
-        "prezzo": 0.9363,
-        "breakeven": 0.4162333333333398
-      },
-      {
-        "symbol": "WLD/USDT",
-        "trend": 1,
-        "momentum": 0.015367158975558117,
-        "prezzo": 0.379,
-        "breakeven": 0.1839999999999994
-      },
-      {
-        "symbol": "ETH/USDT",
-        "trend": 1,
-        "momentum": 0.01309266209409202,
-        "prezzo": 2425.52,
-        "breakeven": 1310.120000000003
+        "momentum": 0.017413805545184454,
+        "prezzo": 1228.06,
+        "breakeven": 606.5233333333318
       },
       {
         "symbol": "XAUT/USDT",
         "trend": 1,
-        "momentum": 0.010501312695696752,
-        "prezzo": 4053.9,
-        "breakeven": 2522.8
+        "momentum": 0.015953217904718927,
+        "prezzo": 4091.3,
+        "breakeven": 1986.7333333333333
       },
       {
-        "symbol": "AAVE/USDT",
+        "symbol": "ETH/USDT",
         "trend": 1,
-        "momentum": 0.010474898447672557,
-        "prezzo": 132.42,
-        "breakeven": 80.54666666666695
-      },
-      {
-        "symbol": "XRP/USDT",
-        "trend": 1,
-        "momentum": 0.009985740284091526,
-        "prezzo": 1.311,
-        "breakeven": 0.8792333333333242
-      },
-      {
-        "symbol": "BTC/USDT",
-        "trend": 1,
-        "momentum": 0.008206795926750136,
-        "prezzo": 80330.9,
-        "breakeven": 56902.8000000005
-      },
-      {
-        "symbol": "SOL/USDT",
-        "trend": 1,
-        "momentum": 0.0050181479998448525,
-        "prezzo": 95.69,
-        "breakeven": 78.06999999999971
-      },
-      {
-        "symbol": "DOGE/USDT",
-        "trend": 1,
-        "momentum": 0.0049852101865175535,
-        "prezzo": 0.07668,
-        "breakeven": 0.06349666666666612
-      },
-      {
-        "symbol": "BNB/USDT",
-        "trend": 1,
-        "momentum": 0.002867746288798717,
-        "prezzo": 715.8,
-        "breakeven": 632.6333333333372
-      },
-      {
-        "symbol": "HYPE/USDT",
-        "trend": 1,
-        "momentum": 0.0018105044643384664,
-        "prezzo": 84.76,
-        "breakeven": 80.79999999999951
+        "momentum": 0.01306455890807856,
+        "prezzo": 2251.14,
+        "breakeven": 1486.2
       },
       {
         "symbol": "LINK/USDT",
         "trend": 1,
-        "momentum": 0.0008446097723147167,
-        "prezzo": 11.537,
-        "breakeven": 10.736999999999899
+        "momentum": 0.008016896398399403,
+        "prezzo": 10.733,
+        "breakeven": 8.654666666666587
       },
       {
-        "symbol": "USD1/USDT",
+        "symbol": "BTC/USDT",
         "trend": 1,
-        "momentum": 0.0003022393735837918,
-        "prezzo": 0.9994,
-        "breakeven": 0.9901333333333279
+        "momentum": 0.007084688746776845,
+        "prezzo": 76105.0,
+        "breakeven": 63788.96666666716
+      },
+      {
+        "symbol": "SOL/USDT",
+        "trend": 1,
+        "momentum": 0.006538851534482953,
+        "prezzo": 89.64,
+        "breakeven": 76.56666666666666
+      },
+      {
+        "symbol": "BNB/USDT",
+        "trend": 1,
+        "momentum": 0.005351432949193082,
+        "prezzo": 692.5,
+        "breakeven": 609.6999999999961
+      },
+      {
+        "symbol": "XRP/USDT",
+        "trend": 1,
+        "momentum": 0.004485508179228012,
+        "prezzo": 1.2343,
+        "breakeven": 1.1269666666666656
+      },
+      {
+        "symbol": "DOGE/USDT",
+        "trend": 1,
+        "momentum": 0.001439033689539446,
+        "prezzo": 0.07193,
+        "breakeven": 0.07469666666666606
+      },
+      {
+        "symbol": "UNI/USDT",
+        "trend": 1,
+        "momentum": 0.0008970951976313684,
+        "prezzo": 6.815,
+        "breakeven": 7.6280000000000046
+      },
+      {
+        "symbol": "SUI/USDT",
+        "trend": 1,
+        "momentum": 0.0008316993104056724,
+        "prezzo": 0.8518,
+        "breakeven": 0.925933333333334
       },
       {
         "symbol": "USDC/USDT",
         "trend": -1,
-        "momentum": -3.046380899473659e-05,
-        "prezzo": 1.00083,
-        "breakeven": 1.001853333333338
+        "momentum": -7.612332858331061e-05,
+        "prezzo": 1.00119,
+        "breakeven": 1.0032599999999965
+      },
+      {
+        "symbol": "USD1/USDT",
+        "trend": -1,
+        "momentum": -0.00015809991914900466,
+        "prezzo": 0.9988,
+        "breakeven": 1.0049333333333454
+      },
+      {
+        "symbol": "NEAR/USDT",
+        "trend": -1,
+        "momentum": -0.0011284968219911016,
+        "prezzo": 3.675,
+        "breakeven": 4.276666666666688
+      },
+      {
+        "symbol": "PEPE/USDT",
+        "trend": -1,
+        "momentum": -0.004264301702887454,
+        "prezzo": 4.817e-06,
+        "breakeven": 5.755666666666659e-06
+      },
+      {
+        "symbol": "WLD/USDT",
+        "trend": -1,
+        "momentum": -0.019181203541145126,
+        "prezzo": 0.3436,
+        "breakeven": 0.6182333333333342
+      },
+      {
+        "symbol": "HYPE/USDT",
+        "trend": -1,
+        "momentum": -0.019192220498747244,
+        "prezzo": 77.89,
+        "breakeven": 135.70666666666705
       },
       {
         "symbol": "AKE/USDT",
         "trend": -1,
-        "momentum": -0.2292938182792202,
-        "prezzo": 0.002656,
-        "breakeven": 0.03486400000000002
+        "momentum": -0.13663027318654847,
+        "prezzo": 0.002397,
+        "breakeven": 0.015035000000000014
       }
     ],
-    "quando": "2026-11-04T17:46:05.128343"
+    "quando": "2026-11-05T18:59:13.886838"
   }
 }
