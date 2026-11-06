@@ -1653,7 +1653,13 @@
       "symbol": "AKE/USDT",
       "amount": 2.0526315880679267,
       "prezzo_acquisto": 0.00511,
-      "quando": "2026-11-06T06:44:10.145445"
+      "quando": "2026-11-06T06:44:10.145445",
+      "ultimo_prezzo": 0.005109,
+      "ultimo_trend": 1,
+      "ultimo_momentum": 0.21900436590301342,
+      "prezzo_breakeven_vendita": -0.020741999999999993,
+      "perdita_attuale_pct": -0.02,
+      "ultima_verifica": "2026-11-06T14:38:40.976477"
     }
   ],
   "fear_greed": {
