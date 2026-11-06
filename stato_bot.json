@@ -1640,7 +1640,13 @@
       "symbol": "DGAI/USDT",
       "amount": 0.01363212163729808,
       "prezzo_acquisto": 0.74717,
-      "quando": "2026-11-05T18:59:13.963448"
+      "quando": "2026-11-05T18:59:13.963448",
+      "ultimo_prezzo": 0.75691,
+      "ultimo_trend": 1,
+      "ultimo_momentum": 0.033478776176173966,
+      "prezzo_breakeven_vendita": 0.038813333333329564,
+      "perdita_attuale_pct": 1.3,
+      "ultima_verifica": "2026-11-06T00:01:50.340933"
     }
   ],
   "fear_greed": {
