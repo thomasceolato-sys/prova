@@ -1731,7 +1731,13 @@
       "symbol": "GRAM/USDT",
       "amount": 0.006694321935898106,
       "prezzo_acquisto": 1.142,
-      "quando": "2026-11-12T22:23:41.088651"
+      "quando": "2026-11-12T22:23:41.088651",
+      "ultimo_prezzo": 1.1498,
+      "ultimo_trend": 1,
+      "ultimo_momentum": 0.007362874557748061,
+      "prezzo_breakeven_vendita": 0.9655666666666699,
+      "perdita_attuale_pct": 0.68,
+      "ultima_verifica": "2026-11-13T02:47:25.040241"
     }
   ],
   "fear_greed": {
