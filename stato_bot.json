@@ -1770,7 +1770,13 @@
       "symbol": "ZEC/USDT",
       "amount": 1.9914514372628637e-05,
       "prezzo_acquisto": 954.2,
-      "quando": "2026-11-18T07:57:32.928701"
+      "quando": "2026-11-18T07:57:32.928701",
+      "ultimo_prezzo": 933.86,
+      "ultimo_trend": 1,
+      "ultimo_momentum": 0.016547581312151047,
+      "prezzo_breakeven_vendita": 470.17666666666435,
+      "perdita_attuale_pct": -2.13,
+      "ultima_verifica": "2026-11-18T17:02:30.511473"
     }
   ],
   "fear_greed": {
