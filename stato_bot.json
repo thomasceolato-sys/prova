@@ -1822,7 +1822,13 @@
       "symbol": "PIEVERSE/USDT",
       "amount": 0.0022235731554360884,
       "prezzo_acquisto": 3.6542,
-      "quando": "2026-11-22T16:38:45.772584"
+      "quando": "2026-11-22T16:38:45.772584",
+      "ultimo_prezzo": 3.6926,
+      "ultimo_trend": 1,
+      "ultimo_momentum": 0.11300099402160205,
+      "prezzo_breakeven_vendita": -9.01846666666667,
+      "perdita_attuale_pct": 1.05,
+      "ultima_verifica": "2026-11-22T22:04:05.074320"
     }
   ],
   "fear_greed": {
