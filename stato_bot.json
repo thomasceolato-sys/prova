@@ -1848,7 +1848,13 @@
       "symbol": "ARIA/USDT",
       "amount": 0.025213150394506875,
       "prezzo_acquisto": 0.31501,
-      "quando": "2026-11-23T22:50:24.051723"
+      "quando": "2026-11-23T22:50:24.051723",
+      "ultimo_prezzo": 0.32651,
+      "ultimo_trend": 1,
+      "ultimo_momentum": 0.07800080266467795,
+      "prezzo_breakeven_vendita": -0.315246666666665,
+      "perdita_attuale_pct": 3.65,
+      "ultima_verifica": "2026-11-24T06:46:10.590987"
     }
   ],
   "fear_greed": {
